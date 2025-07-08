@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+
+  php:
+    build: ./docker/php
+    volumes:
+      - .:/var/www:delegated
+    depends_on:
+      - database
+    networks:
+      - app_network
+  nginx:
+   build: ./docker/nginx
+   ports:
+    - "8080:8000"
+   volumes:
+    - ./public:/var/www/public:delegated
+   networks:
+    - app_network
+   depends_on:
+    - php
+  database:
+    image: 'mariadb:10.11.13'
+    restart: always
+    environment:
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 'yes'
+      MARIADB_DATABASE: ecoride
+      MARIADB_PASSWORD: password
+      DATABASE_URL: mysql://root:@database:3306/ecoride?serverVersion=mariadb-10.11.13
+    ports:
+      # To allow the host machine to access the ports below, modify the lines below.
+      # For example, to allow the host to connect to port 3306 on the container, you would change
+      # "3306" to "3306:3306". Where the first port is exposed to the host and the second is the container port.
+      # See https://docs.docker.com/compose/compose-file/compose-file-v3/#ports for more information.
+      - '3306'
+    networks:
+      - app_network
+
+
+networks: 
+  app_network:

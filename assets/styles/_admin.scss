@@ -1,0 +1,84 @@
+$primary: #3e6259ff; // change the primary color
+$secondary: #aef6c7ff; // change the secondary color
+$neutral: #5b8266ff; // change the neutral color 
+$dark: #294936ff; // change the dark color 
+$black: #212922ff; // change the background color 
+$font-sans-serif: 'Poppins', sans-serif !default;
+$font-monospace: "Poppins", monospace !default;
+$font-serif : "Raleway", serif !default;
+
+.employee-add{
+    div.benef-title{
+        border-radius: .5rem;
+        font-size: 5rem;
+        background-color: $black;
+        color: whitesmoke;
+        padding: 3.5rem 2rem;
+        height: 30rem;
+        em{
+            border: .2rem solid darkred;
+            width: 7.5rem;
+            height: 3.5rem;
+        }
+    }
+    .add-employee-link, div.benef-title{
+        width: 20%;
+    }
+}
+
+// Suspend account by browsing db styling
+.account-suspension{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items:center;
+    div{
+        min-width: 30%;
+        input, label{
+            font-size: 1.4rem;
+            width: 25rem;
+            height: 3rem;
+        }
+    }
+    form{
+        padding: .5rem;
+        border: .2rem solid darkgreen;
+        margin:.5rem;
+    }
+}
+// new employee form creation styles
+
+.new-employee-form{
+    width: 80%;
+    padding: 2rem;
+    div{
+        width: 100%;
+        margin-top: 1rem;
+    }
+    input, label {
+        width: 45rem;
+        height: 4rem;
+        font-size: 1.8rem;
+        font-weight: bold;
+    }
+    label{
+        font-style: oblique;
+        color: $primary;
+    }
+    button{
+        font-size: 2.5rem;
+        padding: 1rem;
+        margin-top: 2rem;
+    }
+}
+// chart section 
+section.admincharts{
+    padding: 10rem 0rem;
+    border-radius: 2rem;
+    .chart-container{
+        width: 40%;
+        canvas{
+            border-radius: 1.5rem;
+        }
+    }
+}

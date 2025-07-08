@@ -1,0 +1,44 @@
+<script src="{{ asset('build/js/carshare-crud.js') }}" defer></script>
+
+{% form_theme form  'form/template.html.twig' %}
+
+{{ form_start(form,  { 'attr': { 'class': 'form-carshare-new' }, 'csrf_protection': false }) }}
+    {{form_row(form.departure_date)}}
+    {{form_row(form.arrival_date)}}
+    {{form_row(form.departure_hour)}}
+    {{form_row(form.arrival_hour)}}
+    {{form_row(form.departure_location)}}
+    {{form_row(form.arrival_location)}}
+    <div class="nb-input-carshare w-100 m-auto d-flex flex-row flex-wrap text-center mt-5 mb-5">
+        <div class="plusminus-carshare">
+            <div class=" d-flex flex-row flex-nowrap justify-content-center align-items-center" id="override-icons-js">
+                <i class="bi bi-plus-circle-fill me-1 ms-1" id="big-plus"></i>
+                <i class="bi bi-plus-lg" id="plus-price"></i>
+            </div>
+            {{form_row(form.price, {'attr': {'id': 'override-styling'} })}}
+            <div class=" d-flex flex-row flex-nowrap justify-content-center align-items-center" id="override-icons-js">
+                <i class="bi bi-dash-lg" id="minus-price"></i>
+                <i class="bi bi-dash-circle-fill me-1 ms-1" id="big-minus"></i>
+            </div>
+        </div>
+        <div class="plusminus-carshare">
+            <i class="bi bi-plus-lg" id="plus-seat"></i>
+            {{form_row(form.available_seats, {'attr': {'id': 'override-styling'} })}}
+            <i class="bi bi-dash-lg" id="minus-seat"></i>
+        </div>
+    </div>
+    {{form_row(form.car)}}
+    {{form_row(form.smokingAllowance)}}
+    {{form_row(form.animalAllowance)}}
+    {{form_row(form.pref)}}
+    
+    <button class="btn fw-bolder validate-new-carshare-btn">{{ button_label|default('Create') }}</button>
+    
+    {% if form_errors(form)|length > 0 %}
+        <div class="carshare-new-form-errors w-50 bg-danger text-white fw-bolder fs-1 p-3">
+            {{form_errors(form)}}
+        </div>
+    {% endif %}
+      
+
+{{ form_end(form, {render_rest: false}) }}

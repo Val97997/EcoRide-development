@@ -1,0 +1,106 @@
+# Version control
+.git/
+.gitignore
+.hg/
+.svn/
+
+# Node.js dependencies and logs
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Python cache and test artifacts
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+
+# Go build/test artifacts
+*.test
+.go-cache/
+
+# Java build artifacts
+*.class
+.gradle/
+
+# IDE/editor settings
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Build and output directories
+build/
+dist/
+out/
+tmp/
+temp/
+*.tmp
+
+# Test directories
+/test/
+tests/
+
+# Debug and log files
+*.log
+debug/
+
+# Environment and secrets
+.env
+.env.*
+*.env
+*.pem
+*.key
+*.crt
+
+# Local configuration and overrides
+.local/
+*.local
+*.local.yml
+config.local.*
+
+# Documentation and markdown
+/docs/
+/docs copy/
+*.md
+README*
+
+# Docker and Compose files
+Dockerfile*
+docker-compose*
+compose.yaml
+compose.override.yaml
+
+docker/
+
+# Miscellaneous
+*.bak
+*.old
+*.orig
+*.rej
+
+# Project-specific
+phpunit.result.cache
+
+# Exclude cache and runtime files
+var/
+
+# Exclude public build artifacts
+public/build/
+
+# Exclude migration cache
+migrations/*.php
+
+# Exclude empty or duplicate public folders
+public copy/
+
+# Exclude html folder if not used in production
+html/
+
+# Exclude frankenphp config if not needed
+frankenphp/
+
+# Exclude EcoRide if empty
+EcoRide/

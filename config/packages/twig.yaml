@@ -1,0 +1,9 @@
+twig:
+    file_name_pattern: '*.twig'
+    # add path to imgs and css styling scripts for mail templates usage
+    paths:
+        'assets/styles': styles
+        'assets/styles/img': img
+when@test:
+    twig:
+        strict_variables: true

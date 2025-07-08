@@ -1,0 +1,41 @@
+$primary: #3e6259ff; // change the primary color to red
+$secondary: #aef6c7ff; // change the secondary color to blue
+$neutral: #5b8266ff; // change the neutral color to green
+$dark: #294936ff; // change the dark color to black
+$black: #212922ff; // change the background color to white
+$font-sans-serif: 'Poppins', sans-serif !default;
+$font-monospace: "Poppins", monospace !default;
+$font-serif : "Raleway", serif !default;
+
+.car-remover{
+    height: 45vh;
+    background-color: $primary;
+    border-radius: .1rem;
+    width: 100%;
+    margin: 5rem auto;
+    padding: 2rem;
+    text-align: center;
+    color: $secondary;
+    .bi-exclamation-triangle-fill{
+        color: red;
+    }
+    div.d-flex{
+        width: 100%;
+        text-align: center;
+        flex-direction: column;
+        justify-content: center;
+        a{
+            color: $secondary;
+            font-size: 1.8rem;
+            &:hover{
+                color: white;
+            }
+        }
+        button{
+            color: $secondary;
+            background-color: $black;
+            border: .2rem solid red;
+            font-size: 2rem;
+        }
+    }
+}

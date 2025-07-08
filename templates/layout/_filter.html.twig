@@ -1,0 +1,43 @@
+
+
+{{ form_start(searchForm)}}
+
+<div class="d-flex basic-search-fields">
+    <div class="search-reveal d-flex flex-column justify-content-center align-items-center">
+        <i class="bi bi-arrow-down-circle-fill" title="more options" id="more-search-options"></i>
+    </div>
+    
+    <div class="seemless-border">
+        
+        {{form_row(searchForm.arrival_location)}}
+        <i class="bi bi-arrow-left-right" id="switch-fields"></i>
+        
+        {{form_row(searchForm.departure_location)}}
+        
+    </div>
+    
+
+     {{form_row(searchForm.departure_date)}}
+     <button class="btn-basic-search-submit" type="submit" title="Search">
+         <i class="fa-solid fa-magnifying-glass-arrow-right fa-3x anim-filling" id="switch-search-icon" ></i>
+     </button>
+     
+</div>
+    
+
+    
+    
+
+    <div class="hidden position-relative" id="extended-search-fields">
+        <div class="extended-search-fields">
+            <div id="price-div-search">
+                {{form_row(searchForm.max)}}
+            </div>
+            {{form_row(searchForm.duration)}}
+            {{form_row(searchForm.eco)}}
+            {{form_row(searchForm.rating)}}
+        </div>
+    </div>
+    
+    {{ form_end(searchForm)}}
+

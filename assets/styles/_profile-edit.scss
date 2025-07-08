@@ -1,0 +1,24 @@
+$primary: #3e6259ff; // change the primary color to red
+$secondary: #aef6c7ff; // change the secondary color to blue
+$neutral: #5b8266ff; // change the neutral color to green
+$dark: #294936ff; // change the dark color to black
+$black: #212922ff; // change the background color to white
+$font-sans-serif: 'Poppins', sans-serif !default;
+$font-monospace: "Poppins", monospace !default;
+$font-serif : "Raleway", serif !default;
+
+.form-update-profile{
+    input{
+        height: 3.5rem;
+        font-size: 1.8rem;
+        border-radius: 2%;
+        background-color: $secondary;
+        color: $black;
+    }
+    input.edit-fname-input{
+        margin-bottom: 1rem;
+    }
+    input.edit-lname-input{
+        margin-top: 1rem;
+    }
+}

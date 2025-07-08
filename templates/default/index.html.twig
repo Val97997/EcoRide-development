@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+{# Display flash redirect messages #}
+{# book success : #}
+{% if showBookMessage %}
+<div id="temporary-message" class="alert alert-success">
+    <h3 class="text-center mt-5 p-3 d-flex flex-row justify-content-center align-items-center">
+        <span class="fs-2">{{ app.flashes('success')[0] }}</span>
+        <button type="button" class="btn-close fs-5 ms-4" data-bs-dismiss="alert" aria-label="Close"></button>
+    </h3>
+</div>
+{# Register success : #}
+{% elseif registerMessage %}
+<div id="temporary-message" class="alert alert-success">
+    <h3 class="text-center mt-5 p-3 d-flex flex-row justify-content-center align-items-center">
+        <span class="fs-2">{{ app.flashes('register')[0] }}</span>
+        <button type="button" class="btn-close fs-5 ms-4" data-bs-dismiss="alert" aria-label="Close"></button>
+    </h3>
+</div>
+{% endif %}
+
+
+<main>
+    <div class="big-hero-img">
+    </div>
+    
+    <div class="big-hero">
+        
+        <div class="big-hero-text" id="hero">
+            <h1 class="text-center">Welcome to EcoRide</h1>
+            <p class="text-center text-black fw-bolder">Your eco-friendly car sharing platform</p>
+        </div>
+        
+    </div>
+    
+    <section class="hook pb-4">
+        <h2 class="pt-4 pb-4 text-secondary">Create an account and become a member !</h2>
+        <div class="hook-text m-auto mt-5 position-relative">
+            <p class="hook-par text-center"><i class="fa-solid fa-quote-left p-0 pe-5"></i>Stay in touch with our company news,<br> become an active member of the EcoRide community,
+                <br>discover new horizons and make fresh acquaintances<i class="fa-solid fa-quote-right p-0 ps-5"></i>
+            </p>
+            <button class="btn hook-button text-uppercase position-absolute" id="hook-button" type="button">
+                {% if app.user %}
+                Welcome !
+                {% else %}
+                Join us !
+                {% endif %}
+            </button>
+            <div class="position-absolute semicirclebtn" id="semicirclebtn">
+                {% if app.user %}
+                <a href="{{ path('app_user_profile') }}" class="btn text-capitalize semicircle-btn" type="button" id="btn-driver">See profile</a>
+                <a href="{{ path('app_search') }}" class="btn text-capitalize semicircle-btn text" type="button" id="btn-passenger">Book</a>
+                {% else %}
+                <a href="{{ path('app_register_client') }}" class="btn text-capitalize semicircle-btn" type="button" id="btn-driver">Passenger</a>
+                <a href="{{ path('app_register_user') }}" class="btn text-capitalize semicircle-btn text" type="button" id="btn-passenger">Driver</a>
+                {% endif %}
+            </div>
+            <p class="hook-par text-center"><i class="fa-solid fa-quote-left p-0 pe-5"></i>Help us grow and build a cleaner way of envisioning the <br>future of roadtrips and travels,<br>
+                so that we can all work towards a more eco-responsible planet<i class="fa-solid fa-quote-right p-0 ps-5"></i>
+            </p>
+        </div>
+    </section>
+    
+    <section class="article-section w-100 h-auto mb-3">
+        <article class="pt-5 pb-5">
+            <div class="article-content w-50">
+                <h3 class="mt-5 pt-5 text-white">Earn credits !</h3>
+                <p class="text-center text-white w-100">On EcoRide, you earn credits by offering travel options, and then spend them <br> to book your next destination .</p>
+                <button class="btn text-center mb-5">More info</button>
+            </div>
+            <img src="{{ asset('build/img/Article_pic_01.png') }}" alt="Picture of a car" class="article-img">
+        </article>
+        
+        <article class="pt-5 pb-5">
+            <div class="article-content w-50">
+                <h3 class="mt-5 pt-5">Book seats all over the country !</h3>
+                <p class="text-center w-100">As a passenger, find numerous destinations all over the country <br> and leave a review after your trip !</p>
+                <button class="btn text-center mb-5">Book now</button>
+            </div>
+            <img src="{{ asset('build/img/Article_pic_02.png') }}" alt="Picture of a car" class="article-img">
+        </article>
+        
+        <article class="pt-5 pb-5">
+            <div class="article-content w-50">
+                <h3 class="mt-5 pt-5 text-white">Open new carshares !</h3>
+                <p class="text-center text-white w-100">As a driver, you can setup your own route from your profile, <br> and become an actor on the platform !</p>
+                <button class="btn text-center mb-5">Create route</button>
+            </div>
+            <img src="{{ asset('build/img/Article_pic_03.png') }}" alt="Picture of a car" class="article-img">
+        </article>
+        
+    </section>
+    
+    <section class="carousel-main">
+        <button class=" position-absolute z-3 h-100" id="carousel-prev"><i class="fa-regular fa-square-caret-left fa-2x"></i></button>
+        <button class=" position-absolute z-3 h-100" id="carousel-next"><i class="fa-regular fa-square-caret-right  fa-2x"></i></button>
+        <div class="carousel-slider anim-slider" id="carousel-slider">
+            <a href="/">
+                <img src="{{ asset('build/img/London.jpg') }}" alt="London" id="London"><h4>London, <span class=" fs-2">visit the capital of the UK</span></h4>
+            </a>
+            <a href="">
+                <img src="{{ asset('build/img/Amsterdam.jpg') }}" alt="Amsterdam"><h4>Amsterdam, <span class=" fs-2">and its many colors</span></h4>
+            </a>
+            <a href=""><img src="{{ asset('build/img/Berlin.jpg') }}" alt="Berlin"><h4>Berlin, <span class=" fs-2">visit the capital of Germany</span></h4></a>
+            <a href=""><img src="{{ asset('build/img/Paris.jpg') }}" alt="Paris"><h4>Paris, <span class=" fs-2">home to the Eiffel Tower</span></h4></a>
+            <a href=""><img src="{{ asset('build/img/Nice.jpg') }}" alt="Nice"><h4>Nice, <span class=" fs-2">and the Mediterranean sun</span></h4></a>
+            <a href=""><img src="{{ asset('build/img/Munich.jpg') }}" alt="Munich"><h4>Munich, <span class=" fs-2">Germany</span></h4></a>
+            <a href=""><img src="{{ asset('build/img/Madrid.jpg') }}" alt="Madrid" id="Madrid"><h4>Madrid, <span class=" fs-2">warmth and sun</span></h4></a>
+        </div>
+    </section>
+    
+    
+    <aside class="btn-scroll-top">
+        <a href="#top"><i class="fa-solid fa-angle-up fa-3x"></i></a>
+    </aside>
+    
+</main>
+
+
+<script src="{{ asset('build/js/homepage.js') }}" data-turbo-track='reload'></script>
+    <script>
+        document.addEventListener('turbo:load', function() {
+            const message = document.getElementById('temporary-message');
+            if (message) {
+                // Auto-hide after 5 seconds
+                setTimeout(function() {
+                    message.style.transition = 'opacity 1s';
+                    message.style.opacity = '0';
+                    setTimeout(function() {
+                        message.style.display = 'none';
+                    }, 1000);
+                }, 5000);
+            }
+        });
+    </script>
+{% endblock %}

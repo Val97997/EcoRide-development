@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+    <script src="{{ asset('build/js/list-index.js') }}" defer></script>
+{% endblock javascripts %}
+
+{% block title %}Available carshares{% endblock %}
+
+{% block body %}
+<div class="search-page-hero-bg"></div>
+<div class="search-page-big-hero text-center">
+    <h1 class="text-secondary">You are looking for adventure, here is your inspiration !</h1>
+    <h4 class="text-white"><span class=" bg-black pe-1 ps-1">Browse all the routes available on our website, search by fuel type, maximal price, or user rating.</span></h4>
+</div>
+
+<div class="container">
+    <div class="column">
+        <div class="form-search position-relative d-flex flex-column justify-content-center align-items-center">
+            {% include "layout/_filter.html.twig" %}
+        </div>
+
+        <div class="col-md-9 mt-5 carshare-list-container">
+            <div class=" d-grid">
+                {% for carshare in carshares %}
+                {% if app.user is not defined %}
+
+                    {% if carshare.availableSeats > 0 and carshare.status.value == 'waiting' %}
+                        {% include "carshare/_card.html.twig" with {carshare: carshare} only %}
+                    {% endif %}
+
+                {% else %}
+                    {# IMPORTANT (LOGICAL POTENTIAL ISSUE) : second condition will prevent Drivers from being able to see their own carshares, 
+                    otherwise it would be non sensical for a driver to be able to book his own route !
+                    Also specify only to show the carshares that are in a waiting stance and not either canceled or full // #}
+                    {% if carshare.availableSeats > 0 and carshare.user.id != app.user.id and carshare.status.value == 'waiting'
+                    and carshare not in app.user.bookHistory %}
+                        {% include "carshare/_card.html.twig" with {carshare: carshare} only %}
+                    {% endif %}
+                
+                {% endif %}
+                {% endfor %}
+        
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

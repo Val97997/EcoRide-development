@@ -1,0 +1,23 @@
+$primary: #3e6259ff; // change the primary color to red
+$secondary: #aef6c7ff; // change the secondary color to blue
+$neutral: #5b8266ff; // change the neutral color to green
+$dark: #294936ff; // change the dark color to black
+$black: #212922ff; // change the background color to white
+$font-sans-serif: 'Poppins', sans-serif !default;
+$font-monospace: "Poppins", monospace !default;
+$font-serif : "Raleway", serif !default;
+
+div.review-card-container{
+    width: 25%;
+    border: .3rem solid $primary;
+    p{
+        overflow-y: scroll;
+        height: 15rem;
+    }
+    .review-body-details{
+        ul{
+            list-style-type:disc;
+            font-size: 1.8rem;
+        }
+    }
+}

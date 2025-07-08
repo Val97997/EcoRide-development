@@ -1,0 +1,27 @@
+services:
+  database:
+    image: mysql
+    restart: always
+    volumes:
+        - db-data:/var/lib/mysql
+    environment:
+        - DATABASE_URL: ${DATABASE_URL:-app}
+  php:
+    build: ./docker/php
+    volumes:
+      - .:/var/www:delegated
+    depends_on:
+      - database
+    networks:
+      - app_network
+  nginx:
+   build: ./docker/nginx
+   ports:
+    - "8080:8000"
+   volumes:
+    - ./public:/var/www/public:delegated
+   networks:
+    - app_network
+
+networks: 
+  app_network:

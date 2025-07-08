@@ -1,0 +1,430 @@
+$primary: #3e6259ff; // change the primary color to red
+$secondary: #aef6c7ff; // change the secondary color to blue
+$neutral: #5b8266ff; // change the neutral color to green
+$dark: #294936ff; // change the dark color to black
+$black: #212922ff; // change the background color to white
+$font-sans-serif: 'Poppins', sans-serif !default;
+$font-monospace: "Poppins", monospace !default;
+$font-serif : "Raleway", serif !default;
+
+@keyframes table-reveal-opac {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@keyframes rotate-hourglass {
+    0% {transform: rotate(0deg);}
+    50% {transform: rotate(180deg);}
+    100% {transform: rotate(360deg);}
+}
+
+.bg-profile{
+    z-index: -1;
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-image: url('../../public/build/img/profile-bg.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    filter:saturate(0.8);
+    opacity: 0.8;
+}
+
+section.profile{
+    width: 90%;
+    border-radius: 1rem;
+    .profile-row-1{
+        padding: 2.5rem;
+        position: relative;
+        max-width: 30%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        &::before{
+        content: '';
+        position: absolute;
+        top: -2rem;
+        left: -2rem;
+        right: -2rem;
+        bottom: -2rem;
+        background: url('../../public/build/img/green-frame.png') no-repeat center;
+        background-size: 100% 100%;
+        z-index: -1;
+        }
+        span{
+            font-size: 3rem;
+            &:first-child{
+                font-weight: bolder;
+                color: $primary;
+            }
+            &:not(:first-child){
+                color: $secondary;
+            }
+        }
+        img{
+            border-radius: 50%;
+            box-shadow: 0 0 1rem .5rem darkgreen;
+        }
+    }
+    .profile-body{
+        background-color: lightgray;
+        border-left: .2rem solid darkred;
+        border-right: .2rem solid darkred;
+        border-bottom:  .2rem solid darkred;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        .pen-img{
+            mix-blend-mode: darken;
+        }
+        .profile-row-2, .profile-row-3{
+            max-width: 40%;
+            display: flex;
+            height: 40rem;
+            margin-top: 5rem;
+        }
+        .profile-row-2{
+            cursor: default;
+            flex-wrap: wrap;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: start;
+            box-shadow: 1rem 1rem grey;
+            span{
+                padding: 1rem none;
+                font-size: 1.6rem;
+                font-weight: 600;
+            }
+            i{
+                color: $secondary;
+            }
+        }
+        .profile-row-3{
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            span.btn{
+                cursor:default;
+                font-size: 2rem;
+                font-weight: 750;
+                i.bi-credit-card-fill, em{
+                    color: brown;
+                }
+            }
+            .not-verif-title{
+                color: darkred;
+            }
+            .verif-title{
+                color: green;
+            }
+        }
+    }
+}
+
+.btn-edit-profile{
+    border: .2rem solid $secondary !important;
+}
+
+//styling list of Car Collection Array :
+.table-car-listing{
+    border-radius: 1.2rem;
+    border-collapse: collapse;
+    max-width: 70%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    tr:hover{
+        transform: scale(1.1);
+        box-shadow: 0 0 1rem $dark;
+        background-color: $black;
+        a:hover{
+            text-decoration: underline;
+        }
+    }
+    caption{
+        font-size: 2.5rem;
+        background-color: $primary;
+        border: .1rem solid white;
+        padding-left: 1rem ;
+    }
+    thead, tbody {
+        width: 100%;
+    }
+    thead{
+        color: white;
+        font-size: 2rem;
+        font-weight: bold;
+        border-radius: .1rem;
+    }
+    tbody{
+        color: $secondary;
+        font-size: 1.4rem;
+        tr:nth-child(even) {
+            background-color: $black;
+        }
+        tr:nth-child(odd) {
+            background-color: $dark;
+        }
+    }
+    th, td, tr {
+        transition: all .4s ease;
+        border: .1rem solid #ddd;
+        padding: 1.2rem;
+        text-align: left;
+        a{
+            text-decoration: none;
+        }
+    }
+
+    th {
+        background-color: $black;
+        font-weight: bold;
+    }
+}
+//carshare table 
+section.carshares-table-container{
+
+    //Driver route section design
+    .btn-reveal-routes{
+        height: 15rem;
+        width: auto;
+        padding: 2rem;
+        background-color: $secondary;
+        border-radius: 2.5%;
+        i{
+            color: $black;
+            font-size: 3rem;
+        }
+        strong{
+            color: $black;
+        }
+    }
+    div.table-carshare-listing{
+      div.carshare-driver-card{
+        width: 30%;
+        border: .2rem solid $primary;
+        margin: 1rem;
+        padding: 1rem;
+        background-color: lightgrey;
+        &:hover{
+            background-color: rgb(203, 230, 203);
+        }
+        &:hover .fa-hourglass-half, &:hover .fa-spinner{
+            animation: rotate-hourglass 1.5s infinite;
+        }
+        .card-head{
+            h2.carshare-card-state{
+                border-radius: 1.5rem;
+                box-shadow: 0rem 0rem 0.5rem .25rem $dark;
+            }
+            .card-content{
+                min-height: 50rem;
+                background-color: $secondary;
+                color: $black;
+            }
+        }
+      }
+    }
+}
+.table-reveal-opac-hidden{
+    opacity: 0;
+}
+.table-reveal-opac-anim{
+    animation: table-reveal-opac 3s;
+}
+
+// notepad border like
+.profile-row-2::before{
+    content: "";
+    display: block;
+    background-image: url('../../public/build/img/Bg-notepad-reliure.jpg');
+    z-index: 1;
+    height: 43rem;
+    width: 22.5rem;
+    margin-left: -13rem;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    mix-blend-mode:darken;
+}
+//
+// today carshares icon anim : 
+.todays-routes{
+    i.fa-spinner, i.fa-hourglass-half{
+        animation: rotate-hourglass 1.5s infinite ease-in-out;
+    }
+}
+
+//modal for cancelling
+div#cancelCarshareModal{
+    min-width: 30rem;
+    h5{
+        font-size: 2.5rem;
+    }
+    p{
+        font-size: 1.6rem;
+    }
+    button{
+        width: 12rem !important;
+        height: 6rem !important;
+    }
+}
+
+// booking listing table 
+div.table-book-listing{
+    display: grid;
+    grid-template-columns: repeat(3, 20rem);
+    gap: 1.5rem;
+    grid-auto-rows: 15rem;
+    font-size: 1.8rem;
+    background-color: $neutral;
+    padding: 2rem;
+    border-radius:1rem ;
+    &:hover div{
+        box-shadow: 0 0 2rem .5rem $dark;
+    }
+    div:nth-child(odd){
+        background-color: $secondary;
+        color: $black;
+    }
+    div:nth-child(even){
+        background-color: $black;
+        color: $secondary;
+    }
+    .dep-loc{
+        grid-column: 1/3;
+        grid-row: 1;
+        overflow: hidden;
+        border-radius: 2rem 0 2rem 2rem;
+        p{
+            white-space: nowrap;
+            font-size: 5rem;
+            text-shadow: 0 .3rem .7rem $black,0 -.3rem .1rem #fff;
+        }
+    }
+    .dep-date{
+        grid-row: 1;
+        grid-column: 3;
+    }
+    .arr-loc{
+        grid-row: 4;
+        grid-column: 2/4;
+        overflow: hidden;
+        border-radius: 0rem 2rem 2rem 2rem;
+        p{
+            transform: skew(-60deg, 20deg) scaleY(.66667);
+            vertical-align: top;
+            white-space: nowrap;
+            font-size: 5rem;
+            text-shadow: $dark .5rem -.5rem 2rem;
+        }
+    }
+    .arr-date{
+        grid-row: 4;
+        grid-column: 1;
+    }
+    .current-status{
+        grid-row: 2/4;
+        grid-column: 1;
+    }
+    .fuel-type{
+        grid-row: 2/4;
+        grid-column: 3;
+    }
+    .view-book{
+        grid-row: 2;
+        grid-column: 2;
+    }
+    .cancel-book, .confirm-route{
+        grid-row: 3;
+        grid-column: 2;
+        border-radius: 2rem;
+    }
+    .cancel-book{
+        &:hover ~ h2.cancel-panel{
+            transform: translate(-55%) rotate(-90deg);
+        }
+        &:hover ~h2.cancel-panel-r{
+            transform: translate(55%) rotate(90deg);
+        }
+        button:hover{
+            background-color: darkred;
+            color: greenyellow;
+        }
+    }
+    .confirm-route{
+        border-radius: 2rem;
+        overflow: hidden;
+    }
+    .confirm-route:hover i.fa-circle-check{
+        transition: all .4s ease;
+        transform: scale(20);
+    }
+    .contact-book{
+        button:hover{
+            background-color: $black;
+            color: transparent;
+        }
+        i.fa-envelope{
+            left: 40%;
+            transition: all .5s ease;
+            transform: translateY(-10rem);
+            color: transparent;
+        }
+        &:hover i.fa-envelope{
+            color: white;
+            transform: translateY(5rem);
+        }
+    }
+    [class*="cancel-panel"]{
+        transition: all .4s ease;
+        padding: 1rem;
+        border: .2rem dotted $dark;
+    }
+    .cancel-panel{
+        left:0%;
+        transform: rotate(-90deg);
+    }
+    .cancel-panel-r{
+        right: 0%;
+        transform: rotate(90deg);
+    }
+}
+// media queries
+
+@media (max-width: 1500px) {
+    .table-book-listing{
+        grid-template-columns: repeat(3, 28vw) !important;
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+        text-align: center;
+        .cancel-panel, .cancel-panel-r{
+            display: none;
+        }
+    }
+}
+@media (max-width: 1200px) {
+    .table-car-listing{
+        caption{
+            border-radius: 2rem 2rem 0% 0%;
+        }
+    }
+    .carshare-driver-card{
+        .card-head h2{
+            width: 80% !important;
+        }
+        .card-content a{
+            margin-top: 2.5rem;
+        }
+        .card-content{
+            height: 40rem !important;
+        }
+    }
+    .btn-reveal-routes{
+        height: auto !important;
+        width: 30vw !important;
+    }
+}

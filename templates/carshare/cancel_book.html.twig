@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cancel Confirm{% endblock %}
+
+{% block body %}
+<div class="book-remover w-100 text-center mt-5 pt-5">
+    <h1> <i class="bi bi-exclamation-triangle-fill text-danger"></i> You are about to cancel your booking for the following route :
+    {{carshare.departureLocation}} <i class="fa-solid fa-arrow-right "></i> {{carshare.arrivalLocation}}
+    </h1>
+    
+    <div class=" d-flex flex-wrap flex-row justify-content-around m-5">
+        <a class="btn btn-primary fs-1 fw-bold" href="{{ path('app_user_profile') }}">Back to profile</a>
+        <a class="btn btn-danger fs-1 fw-bold" href="{{path('app_cancel', {'id': carshare.id, 'uid': app.user.id} )}}" id="countdownBtn">Confirm</a>
+    </div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var button = document.getElementById('countdownBtn');
+    var countdown = 5;
+    var countdownInterval = setInterval(function() {
+        countdown--;
+        button.textContent = 'Confirm (' + countdown + ')';
+        if (countdown <= 0) {
+            clearInterval(countdownInterval);
+            button.textContent = 'Expired';
+            button.classList.remove('btn-danger');
+            button.classList.add('btn-secondary');
+            button.href = '#';
+            button.style.pointerEvents = 'none';
+        }
+    }, 1000);
+});
+</script>
+
+{% endblock %}

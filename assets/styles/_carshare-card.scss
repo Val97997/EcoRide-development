@@ -1,0 +1,144 @@
+$primary: #3e6259ff; // change the primary color to red
+$secondary: #aef6c7ff; // change the secondary color to blue
+$neutral: #5b8266ff; // change the neutral color to green
+$dark: #294936ff; // change the dark color to black
+$black: #212922ff; // change the background color to white
+$font-sans-serif: 'Poppins', sans-serif !default;
+$font-monospace: "Poppins", monospace !default;
+$font-serif : "Raleway", serif !default;
+
+.carshare-list-container{
+    width: 90%;
+    margin: auto;
+    div{
+        width: 100%;
+        .carshare-card{
+            padding: 2rem 3rem;
+            background-color: $primary;
+            border-radius: 2rem;
+            border: .1rem solid $secondary;
+            box-shadow: 0 0 1rem $neutral;
+            h5{
+                font-size: 3rem;
+                font-weight:bolder;
+                color: white;
+                width: 100%;
+                border-bottom : .1rem dashed $secondary;
+                padding-bottom: 1rem;
+            }
+            .card-body{
+                .card-route-details{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content : flex-end;
+                    align-items: center;
+                    h4, h6{
+                        margin: 0rem 2rem;
+                    }
+                    h4{
+                        font-size: 2.5rem;
+                        &:hover{
+                            cursor: default;
+                        }
+                    }
+                    h6{
+                        font-size: 1.6rem;
+                        &:hover{
+                            cursor: default;
+                        }
+                    }
+                }
+                .card-title{
+                    width: 100%;
+                    display: flex;
+                    flex-wrap: nowrap;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    align-items: center;
+                    .card-user-details{
+                        width: 15%;
+                        font-size: 1.6rem;
+                        color: $secondary;
+                        font-weight: lighter;
+                    }
+                    .card-timeline-details{
+                        width: auto;
+                        font-size: 2rem;
+                        color: $secondary;
+                        h6{
+                            font-size: 1.4rem;
+                            .bi-x-square{
+                                margin-left: 1rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.btn-carshare-details{
+        color: $secondary;
+        display: flex;
+        justify-content: start;
+        height: auto;
+        a{
+            text-decoration: none;
+            font-size: 2rem;
+            font-weight: normal;
+            font-family: $font-sans-serif;
+            width: 10rem;
+            height: 5rem;
+            background: $secondary;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            &::before{
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                0deg, 
+                transparent, 
+                transparent 30%, 
+                rgba(2, 172, 172, 0.3)
+            );
+            transform: rotate(-45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+            }
+            &:hover{
+                transform: scale(1.05);
+                box-shadow: 0 0 20px rgba(1, 107, 24, 0.5);
+                &::before{
+                    opacity: 1;
+                    transform: rotate(-45deg) translateY(100%);
+                }
+            }
+        }
+}
+
+@media (max-width:1000px) {
+    .card-title{
+        flex-direction: column !important;
+    }
+    .card-user-details{
+        text-align: center!important;
+        height: 10rem !important;
+        width: 100% !important;
+    }
+    .btn-carshare-details{
+        margin-left: 80%;
+        margin-top: 5rem !important;
+    }
+    .card-timeline-details{
+        line-height: 8rem;
+    }
+}

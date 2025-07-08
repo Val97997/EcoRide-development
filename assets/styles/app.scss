@@ -1,0 +1,224 @@
+@charset "UTF-8";
+// This is the main SCSS file for the EcoRide project.
+@import "header";
+@import "footer";
+@import "homepage";
+@import "register";
+@import "login";
+@import "list-page";
+@import "carshare-card";
+@import 'carshare-view';
+@import 'profile';
+@import 'profile-edit';
+@import 'car-crud';
+@import 'car-show';
+@import 'carshare-crud.scss';
+@import 'review-form.scss';
+@import "review-carshare-card.scss";
+@import "admin.scss";
+
+@font-face {
+    font-family: 'Raleway';
+    src: url("./fonts/Raleway/Raleway-Regular.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+    font-family: 'Raleway';
+    src: url("./fonts/Raleway/Raleway-Bold.ttf") format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face{
+    font-family: 'Raleway';
+    src: url("./fonts/Raleway/Raleway-Light.ttf") format('truetype');
+    font-weight: lighter;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Raleway';
+    src: url("./fonts/Raleway/Raleway-Medium.ttf") format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Raleway';
+    src: url("./fonts/Raleway/Raleway-SemiBold.ttf") format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Raleway';
+    src: url("./fonts/Raleway/Raleway-Thin.ttf") format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Raleway';
+    src: url("./fonts/Raleway/Raleway-ExtraBold.ttf") format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Raleway';
+    src: url("./fonts/Raleway/Raleway-Black.ttf") format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Raleway';
+    src: url("./fonts/Raleway/Raleway-ThinItalic.ttf") format('truetype');
+    font-weight: 100;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Raleway';
+    src: url("./fonts/Raleway/Raleway-ExtraBoldItalic.ttf") format('truetype'); 
+    font-weight: 800;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Raleway';
+    src: url("./fonts/Raleway/Raleway-BlackItalic.ttf") format('truetype');
+    font-weight: 900;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Raleway';
+    src: url("./fonts/Raleway/Raleway-BoldItalic.ttf") format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Raleway';
+    src: url("./fonts/Raleway/Raleway-LightItalic.ttf") format('truetype');
+    font-weight: lighter;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Raleway';
+    src: url("./fonts/Raleway/Raleway-MediumItalic.ttf") format('truetype');
+    font-weight: 500;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Raleway';
+    src: url("./fonts/Raleway/Raleway-SemiBoldItalic.ttf") format('truetype');
+    font-weight: 600;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Raleway';
+    src: url("./fonts/Raleway/Raleway-Italic.ttf") format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+// customize some Bootstrap variables
+$primary: #3e6259ff; // change the primary color to red
+$secondary: #aef6c7ff; // change the secondary color to blue
+$neutral: #5b8266ff; // change the neutral color to green
+$dark: #294936ff; // change the dark color to black
+$black: #212922ff; // change the background color to white
+$font-sans-serif: 'Poppins', sans-serif !default;
+$font-monospace: "Poppins", monospace !default;
+$font-serif : "Raleway", serif !default;
+// assets/styles/global.scss
+
+
+// the ~ allows you to reference things in node_modules
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+
+// general rules
+html{
+    font-size: 62.5% !important; // 1rem = 10px
+}
+main{
+    margin-top: 9.3rem ;
+    width: 100% ;
+}
+
+h1, h2, h3, h4, h5, h6, button{
+    font-family: $font-serif;
+}
+p, input, textarea, select{
+    font-family: $font-sans-serif;
+}
+body{
+    box-sizing: border-box !important;
+    height:fit-content !important;
+    min-height: 150vh !important;
+    padding-bottom: 15rem !important;
+}
+// modal
+.modal{
+    top: 40%;
+}
+.modal-dialog{
+    width: 40vw;
+    height: 30vh;
+}
+//mini profile aside
+@keyframes mini-profile-anime{
+    0% {transform: scale(1.0);}
+    100% {transform: scale(1.15);}
+}
+aside.mini-profile{
+    width: 9rem;
+    z-index: 1000;
+    top:2%;
+    right: 2%;
+    border-radius: .5rem;
+    background-color: transparent;
+    height: 10rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: $secondary;
+    &:hover{
+        background-color: $black;
+        box-shadow: 0 0 1rem $secondary;
+        animation: mini-profile-anime 1.5s ease-in-out alternate infinite;
+    }
+    a{
+        text-decoration: none;
+    }
+    a:hover{
+        text-decoration: underline;
+    }
+    img{
+        border-radius: 50%;
+    }
+    h5{
+        text-decoration: none;
+        font-size: 1.6rem;
+        font-weight: 1000;
+    }
+}
+
+@media (max-width:1200px) {
+    img.logo-nav{
+        margin-right: 2rem;
+    }
+    a.nav-link{
+        margin: auto 1rem;
+    }
+    aside.mini-profile{
+        top: 15%;
+    }
+    .navbar-desktop{
+        display: none !important;
+    }
+    .navbar-mobile{
+        display: block !important;
+        padding: 0rem 2rem;
+        li{
+            margin-top: .5rem;
+            text-align: center;
+        }
+    }
+}

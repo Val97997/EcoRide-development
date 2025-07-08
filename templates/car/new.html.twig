@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Car{% endblock %}
+
+{% block body %}
+<div class="bg-car-crud">
+
+</div>
+    <h1 class="w-100 text-center fw-bolder text-white fs-1 pt-5 pb-3 bg-primary"><span class=" d-inline-block" id="fast-slider-1">Add</span>
+        <span class=" d-inline-block" id="fast-slider-2">your</span> <span class=" d-inline-block" id="fast-slider-3">vehicle</span>
+    <br>
+    <i class="fa-solid fa-square-plus reveal-icon-car fa-3x" id="new-car-auto-input"></i>
+    </h1>
+
+    {{ include('car/_form.html.twig') }}
+
+    <a class="back-link btn btn-danger m-auto position-absolute" href="{{ path('app_user_profile') }}">back to profile</a>
+{% endblock %}

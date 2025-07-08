@@ -1,0 +1,16 @@
+{% extends "email/_baseEmail.html.twig" %}
+
+{% block content %}
+<section class="mail-book-success">
+    <h3>Dear {{user.firstName}} {{user.lastName}}, </h3> <hr>
+  
+    <p class=" fs-3">Your booking has been confirmed
+      <br>    
+      Thank you for choosing our platform ! 
+      <br>
+      Your ticket is attached to this mail.
+    </p>
+
+    <h3>You can find your voyage displayed in your <a class=" text-decoration-underline text-info" href="{{ url('app_user_profile') }}">profile</a>  </h3>
+</section>
+{% endblock content %}

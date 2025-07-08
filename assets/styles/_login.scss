@@ -1,0 +1,54 @@
+$primary: #3e6259ff; // change the primary color to red
+$secondary: #aef6c7ff; // change the secondary color to blue
+$neutral: #5b8266ff; // change the neutral color to green
+$dark: #294936ff; // change the dark color to black
+$black: #212922ff; // change the background color to white
+$font-sans-serif: 'Poppins', sans-serif !default;
+$font-monospace: "Poppins", monospace !default;
+$font-serif : "Raleway", serif !default;
+
+.login-form{
+    width: 80%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 2rem auto;
+    h1{
+        font-size: 2.5rem;
+        font-weight: bold;
+        letter-spacing: .4rem;
+        span:not(:nth-child(5)), span:not(:nth-child(7)){
+            margin-right: -1rem;
+        }
+    }
+    label, input, button{
+        margin-top: 3rem;
+    }
+
+    label{
+        font-size: 1.8rem;
+    }
+    #password, #username, #password:autofill, #username:autofill{
+        height: 3rem;
+        width: 50rem;
+        font-size: 1.6rem;
+    }
+    #password:auto, #username:autofill{
+        background-color: none !important;
+    }
+    button{
+        height: 7.5rem;
+        width: 14rem;
+        font-size: 2.2rem;
+        margin-bottom: 3rem;
+    }
+    a{
+        font-size: 1.4rem;
+        color: $dark;
+        &:hover{
+            color: $primary;
+        }
+    }
+}

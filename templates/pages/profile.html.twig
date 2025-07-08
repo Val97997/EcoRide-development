@@ -1,0 +1,179 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{app.user.pseudo}} profile{% endblock %}
+
+{% block body %}
+{# bg image on screen #}
+<div class="bg-profile">
+
+</div>
+{# Display flash redirect messages #}
+{# Car added #}
+{% if showCarMessage %}
+    {% include "layout/_flash-messages.html.twig" with {flashM: app.flashes('car-added')[0]}  %}
+{% endif %}
+{# Carshare created #}
+{% if showCarshareMessage %}
+    {% include "layout/_flash-messages.html.twig" with {flashM: app.flashes('carshare-saved')[0]}  %}
+{% endif %}
+{% if showStartMessage %}
+    {% include "layout/_flash-messages.html.twig" with {flashM: app.flashes('carshare-start')[0]}  %}
+{% endif %}
+{% if showCancelMessage %}
+    {% include "layout/_flash-messages.html.twig" with {flashM: app.flashes('carshare-cancel')[0]}  %}
+{% endif %}
+{% if showEndMessage %}
+    {% include "layout/_flash-messages.html.twig" with {flashM: app.flashes('carshare-end')[0]}  %}
+{% endif %}
+
+
+<section class="profile m-auto pt-5 pb-5">
+    <div class="profile-row-1 m-auto">
+        <span>{{app.user.pseudo}}</span>
+        {% if app.user.picture is not null %}
+        <img src="{{asset('profile_pics/%s.jpg'|format(app.user.pseudo))}}" alt="Profile" style="height: 20rem; width: 20rem;">  
+        {% endif %}
+        <span>{{app.user.email}}</span>
+    </div>
+
+    <div class="profile-body mt-5 p-5">
+        
+        <div class="profile-row-2 ps-5 pe-5 btn btn-primary">
+            <span><i class="bi bi-person-vcard me-2"></i>{{app.user.firstName|slice(0, 15)}} {{app.user.lastName|slice(0, 15)}}</span>
+
+            <span>
+                <i class="bi bi-cake-fill me-2"></i> 
+                {% if app.user.birthDate is not null %}
+                    {{app.user.birthDate|date('d/m/Y')}}
+                {% else %}
+                    N/A
+                {% endif %}
+            </span>
+            <span><i class="bi bi-geo-fill me-2"></i>
+            {% if app.user.address is not null %}
+              {{app.user.address|slice(0, 20)}}
+              {% else %}
+              N/A
+            {% endif %}
+            </span>
+            <span><i class="bi bi-telephone-fill me-2"></i>
+            {% if app.user.phoneNb %}
+              {{app.user.phoneNb}}
+              {% else %}
+              N/A
+            {% endif %}
+            </span>
+        </div>
+
+        <img src="{{asset('build/img/pen-deco.jpg')}}" class="pen-img" alt="A pen">
+
+
+        <div class="profile-row-3">
+            <span class="btn btn-secondary"><i class="bi bi-credit-card-fill me-2"></i> Current Credit balance : <em>{{app.user.creditBalance}}</em></span>
+            {# check verification status in dynamic field display #}
+            {% if app.user.isVerified %}
+              <h4 class="verif-title fs-1">Verified Profile<i class="bi bi-patch-check-fill ms-2"></i></h4>
+            {% else %}
+              <h4 class="not-verif-title">Verification pending <hr> <em>please check your mail inbox</em></h4>
+            {% endif %}
+
+            {# manage if user can create routes or just book them #}
+            {% if 'ROLE_DRIVER' in app.user.roles  %}
+            {# REMEMBER to specify the app.user.id so that it gets added and queried automatically in the DB car.user field ! DO NOT
+            leave it as an input choice for the Driver User, otherwise granting access to other Users IDs ! #}
+                <h3><a href="{{path('app_car_new')}}" class="btn btn-dark text-secondary text-decoration-none fs-3 fw-bold"><i class="bi bi-plus-circle-fill"></i> Add a car</a></h3>
+                {% if app.user.cars|length > 0 %}
+                    <h3><a href="{{path('app_carshare_new')}}" class="btn btn-dark text-secondary text-decoration-none fs-3 fw-bold"><i class="bi bi-file-earmark-plus"></i> Create carshare</a></h3>
+                {% elseif app.user.cars|length == 0 %}
+                    <h3><a href="{{path('app_car_new')}}" class="btn btn-dark text-secondary text-decoration-none fs-3 fw-bold"><i class="bi bi-file-earmark-plus">
+                    </i> Register a car in order to create a voyage</a></h3>
+                {# here we checked if the Driver has currently a car registered, as such allowing him to create a carshare / or not #}
+                {% endif %}
+                
+                
+            {% else %}
+                <h3><a href="{{path('app_user_switch', {'id': app.user.id})}}">Become driver (new login required)</a></h3>
+                <h3><a href="#book-history-table">View history</a></h3>
+                
+            {% endif %}
+                
+                
+        </div>
+
+    </div>
+        
+        
+        <a href="{{path('app_user_edit', {'id': app.user.id})}}" class="fs-2 btn btn-dark text-danger mt-2 btn-edit-profile">Edit info</a>
+
+
+        {% if 'ROLE_DRIVER' in app.user.roles and app.user.cars|length > 0 %}
+        {# set up vehicle display table #}
+            <table class="table-car-listing bg-black mt-3 mb-3 draggable-profile w-100 me-auto ms-auto">
+                <caption class="text-white caption-top">
+                    {% if app.user.cars|length > 1 %}
+                      Vehicle fleet
+                       {% elseif app.user.cars|length == 1 %}
+                      Vehicle
+                    {% endif %}
+                    <em>(Click and hold to drag)</em>
+                </caption>
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th>Color</th>
+                        <th>Registration</th>
+                        <th>Reg. date</th>
+                        <th>Fuel</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for car in app.user.cars %}
+                    {% include "car/_vehicle-row.html.twig" %}
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            {% if app.user.carshares|length > 0 %}
+                {% for carshare in app.user.carshares %}
+                    {% if carshare.departureDate|date("m/d/Y") == 'now'|date("m/d/Y") %}
+                    <section class="todays-routes me-auto ms-auto mt-5 mb-5 rounded bg-secondary w-50 p-5">
+                        <h1 class=" w-100 text-center fw-bolder">Today's routes</h1>
+                        {% include "carshare/_carshare-row.html.twig" %}
+                    </section>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+            {# set up offered carshares table #}
+            {% if app.user.carshares|length > 0 %}
+              <section class="carshares-table-container d-flex flex-column justify-content-start w-100 align-content-between m-auto p-0" id="carshare-listing">
+                <button class="btn-reveal-routes btn btn-dark fs-1 w-25 m-auto" id="btn-reveal-routes">
+                   <code id="codeElem" class=""></code>  <hr class=" text-black">
+                     <strong id="btn-reveal-routes-title" class=" fs-4 "> Rotate to consult your routes</strong>
+                </button>
+
+                <div class="table-reveal-opac-hidden table-carshare-listing d-flex flex-wrap flex-row justify-content-center w-100 m-auto p-0">
+                    
+                    {% for carshare in app.user.carshares|sort((a,b) => b.departureDate <=> a.departureDate )%}
+                    {% include "carshare/_carshare-row.html.twig" with {carshare:carshare} only %}
+                    {% endfor %}
+
+                </div>
+              </section>
+            {% endif %}
+        {% endif %}
+
+
+        {% if app.user.bookHistory|length > 0 %}
+            <section class="book-history-table w-100 me-auto ms-auto mt-5 mb-3 d-flex flex-wrap flex-row justify-content-between" id="book-history-table">
+                <h1 class="text-center w-100 me-auto ms-auto mb-5 fw-bolder fs-1 bg-black text-secondary pt-3 pb-3">Passenger history</h1>
+                    {% for carshare in app.user.bookHistory|sort((a, b) => b.departureDate <=> a.departureDate) %}
+                    
+                        {% include "carshare/_bookedCarshare-row.html.twig" %}
+                    
+                    {% endfor %}
+            </section>
+        {% endif %}
+
+</section>
+{% endblock %}

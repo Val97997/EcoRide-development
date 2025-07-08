@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Carshare index{% endblock %}
+
+{% block body %}
+    <h1>Carshare index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Departure_date</th>
+                <th>Departure_hour</th>
+                <th>Departure_location</th>
+                <th>Arrival_date</th>
+                <th>Arrival_hour</th>
+                <th>Arrival_location</th>
+                <th>Status</th>
+                <th>Available_seats</th>
+                <th>Price</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for carshare in carshares %}
+            <tr>
+                <td>{{ carshare.id }}</td>
+                <td>{{ carshare.departureDate ? carshare.departureDate|date('Y-m-d') : '' }}</td>
+                <td>{{ carshare.departureHour ? carshare.departureHour|date('H:i:s') : '' }}</td>
+                <td>{{ carshare.departureLocation }}</td>
+                <td>{{ carshare.arrivalDate ? carshare.arrivalDate|date('Y-m-d') : '' }}</td>
+                <td>{{ carshare.arrivalHour ? carshare.arrivalHour|date('H:i:s') : '' }}</td>
+                <td>{{ carshare.arrivalLocation }}</td>
+                <td>{{ carshare.status }}</td>
+                <td>{{ carshare.availableSeats }}</td>
+                <td>{{ carshare.price }}</td>
+                <td>
+                    <a href="{{ path('app_carshare_show', {'id': carshare.id}) }}">show</a>
+                    <a href="{{ path('app_carshare_edit', {'id': carshare.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_carshare_new') }}">Create new</a>
+{% endblock %}

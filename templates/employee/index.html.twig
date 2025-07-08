@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Your workspace{% endblock %}
+
+{% block body %}
+<h1 class="w-100 fs-2 fw-bold text-center mt-5 pt-5"> {{app.user.pseudo}} work page</h1> <hr>
+<h3 class="w-100 fs-2 fw-bold text-center"> You have {{reviews|length}} new submissions to review</h3>
+
+<section class="employee-reviews w-100 bg-black text-white d-flex flex-wrap flex-row justify-content-evenly align-content-start mt-5">
+    
+    {% for review in reviews %}
+    {# You can render a controller action for each review using the 'render' function #}
+    {{ render(controller('App\\Controller\\EmployeeController::review', {'id': review.id})) }}
+    {% endfor %}
+
+</section>
+{% endblock %}

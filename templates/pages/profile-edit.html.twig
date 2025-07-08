@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+  
+{% endblock javascripts %}
+
+{% block title %} Edit Profile {% endblock title %}
+{% block body %}
+  {{ form_start(registrationForm, {"attr":{'class': 'form-update-profile'} }) }}
+    <div class="bg-profile">
+
+</div>
+
+<section class="profile m-auto pt-5 pb-5">
+    <div class="profile-row-1 m-auto">
+        <span>{{form_row(registrationForm.pseudo, {'label': false, 'attr':{'placeholder': none, 'value': app.user.pseudo} })}}</span>
+        <span>
+          {% if app.user.picture is null %}
+            {{form_row(registrationForm.picture, {'label': false})}}
+          {% endif %}
+        </span>
+        <span>{{form_row(registrationForm.email, {'label': false, 'attr':{'placeholder': none, 'value': app.user.email} })}}</span>
+    </div>
+
+    <div class="profile-body mt-5 p-3">
+        
+        <div class="profile-row-2 ps-5 pe-5 btn btn-primary">
+            <span>{{form_row(registrationForm.first_name, {'label': false, 'attr':{'placeholder': none, 'value': app.user.firstName, 'class': 'edit-fname-input'} })}}
+               {{form_row(registrationForm.last_name, {'label': false, 'attr':{'placeholder': none, 'value': app.user.lastName, 'class': 'edit-lname-input'} })}}</span>
+
+            <span>{{form_row(registrationForm.birth_date, {'label': false, 'attr':{'value': app.user.birthDate|date("Y-m-d")} })}}</span>
+            <span>{{form_row(registrationForm.address, {'label': false, 'attr':{'placeholder': none, 'value': app.user.address} })}}</span>
+            <span>{{form_row(registrationForm.phone_nb, {'label': false, 'attr':{'placeholder': none, 'value': app.user.phoneNb} })}}</span>
+        </div>
+        <div class="profile-row-3">
+            
+            
+                
+        </div>
+            
+      </div>
+        
+        <button class="fs-2 btn btn-dark text-danger mt-2 btn-edit-profile" type="submit">Update</button>
+        <a href="{{path('app_user_profile')}}" class="fs-2 btn btn-secondary text-black mt-2 btn-edit-profile">Cancel</a>
+  {{ form_end(registrationForm, {render_rest: false}) }}
+{% endblock body %}

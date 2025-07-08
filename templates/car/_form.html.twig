@@ -1,0 +1,27 @@
+{% form_theme form  'form/template.html.twig' %}
+{% block javascripts %}
+  <script src="{{ asset('build/js/car-crud.js') }}" defer></script>
+{% endblock javascripts %}
+{# let us define as attribute a class to make it easier to style in CSS: #}
+{{ form_start(form, { 'attr': { 'class': 'form-car-new' }, 'csrf_protection': false }) }}
+
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+
+    {# Error display UX management and implementing break action boolean to avoid multiple displays : #}
+    {% set break = false %}
+    {% for item in form %}
+      {% if form_errors(item)|length > 0 and not break %}
+      
+      {% set break = true %}
+      <div class="text-center car-form-errors z-3 mt-3 mb-5 bg-danger p-5">
+          <h3 class=" fs-3 fw-bolder">Input errors :</h3>
+          {{form_errors(form.registration, {'attr': {'class' : 'bg-danger'} })}}
+          {{form_errors(form.color)}}
+          {{form_errors(form.model)}}
+      </div>
+      {% endif %}
+    {% endfor %}
+
+
+{{ form_end(form) }}

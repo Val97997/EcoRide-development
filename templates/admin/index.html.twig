@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin panel{% endblock %}
+
+{% block body %}
+<h1 class=" fs-1 fw-bold text-dark w-100 text-center pt-5">Dashboard Admin</h1>
+<div class="employee-add text-center w-100 d-flex flex-wrap flex-row justify-content-center">
+    {# get the only value in the total platform earnings array #}
+    <div class="benef-title">
+        <h1>Total platform earnings <hr> <em class=" d-block m-auto" id="benef-counter"></em></h1>  
+    </div>
+    <div class=" w-100 me-auto ms-auto mt-5 mb-5 account-suspension d-flex flex-column">
+        <h1>Suspend an account</h1>
+        {% include "pages/user-card.html.twig" %}
+    </div>
+    <a href="{{path('app_admin_addemployee')}}" class="btn btn-info fs-2 add-employee-link pt-5"><i class="bi bi-person-plus-fill fs-1"></i> <hr>Create an employee profile</a>
+</div>
+
+<section class="admincharts d-flex flex-wrap flex-row bg-primary justify-content-center m-5">
+
+    <div class="chart-container">
+        <canvas id="ridesPerDayChart" class=" w-75 p-2 m-auto bg-white" title="ridesPerDayChart"></canvas>
+    </div>
+    
+    <div class="chart-container">
+        <canvas id="creditsPerDayChart" class="w-75 p-2 m-auto bg-white" title="creditsPerDayChart"></canvas>
+    </div>
+
+</section>
+
+
+
+{# js for Charts #}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ridesPerDayData = JSON.parse('{{ routesPD|e("js") }}');
+            const earnings = JSON.parse('{{ earnings|e("js")}}');
+
+            const ridesPerDayCtx = document.getElementById('ridesPerDayChart');
+            const earningsCtx = document.getElementById('creditsPerDayChart');
+            // routes per day chart
+            new Chart(ridesPerDayCtx, {
+                type: 'bar',
+                data: {
+                    labels: ridesPerDayData.map(item => item.day),
+                    datasets: [{
+                        label: 'Carshares per day',
+                        data: ridesPerDayData.map(item => item.count),
+                        backgroundColor: '#aef6c7ff',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1,
+                        hoverBackgroundColor: 'green'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            // earnings chart
+            new Chart(earningsCtx, {
+                type: 'line',
+                data: {
+                    labels: earnings.map(item => item.day),
+                    datasets: [{
+                        label: 'Earned credits per day',
+                        data: earnings.map(item => item.passenger_count*2), // multiply every passenger entry
+                        tension: 0.1, // parameter to set up for a curve line 
+                    }]
+                }
+            })
+        });
+
+        //counter progress
+        document.addEventListener('DOMContentLoaded', function(){
+            let counterElement = document.getElementById('benef-counter');
+            let currentValue = 0;
+            let targetValue = "{{benef|first}}"; // Default value if not set
+            let duration = 2000; // Duration of the animation in milliseconds
+            let startTime = null;
+
+            function animateCounter(timestamp) {
+                if (!startTime) startTime = timestamp;
+                let progress = timestamp - startTime;
+                let increment = Math.floor((progress / duration) * targetValue);
+
+                if (increment >= targetValue) {
+                    currentValue = targetValue;
+                } else {
+                    currentValue = increment;
+                }
+
+                counterElement.textContent = currentValue;
+
+                if (progress < duration) {
+                    requestAnimationFrame(animateCounter);
+                }
+            }
+
+            requestAnimationFrame(animateCounter);
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+    <head>
+        <meta charset="UTF-8">
+        {# !!IMPORTANT: stop the prefetch from Turbo v8 otherwise flush and GET methods triggered on hovering links   #}
+        <meta name="turbo-prefetch" content="false">
+        {# <meta name="turbo-cache-control" content="no-cache"> #}
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/6aa7418ce8.js" crossorigin="anonymous"></script>
+        
+        {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+        
+        {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+        {# {{ encore_entry_script_tags('dd') }} #}
+        {% endblock %}
+      </head>
+      <body class="h-100 position-relative" id="top">
+        
+        <header class="h-auto bg-dark pt-3 pb-3" id="header">
+          <nav class="navbar-desktop text-center" id="navbar">
+          
+                <div class="d-flex nav-items">
+                  
+                    <a class="nav-link header-link bg-black btn" href="{{ path('app_default')}}">Home</a>
+                    <a class="nav-link header-link text-end" href="{{ path('app_search')}}">Carshares</a>
+      
+                </div>
+      
+                  <a href="/" class="">
+                    <img src="{{ asset('build/img/Logo.svg') }}" alt="Logo" class="logo logo-nav">
+                  </a>
+              
+                <div class="d-flex nav-items">
+      
+                    <a class="nav-link header-link text-start" href="#footer">Contact</a>
+                    {% if app.user %}
+                    <a href="{{path('app_logout')}}" class="btn-primary btn p-0 text-center" type="button">Logout</a>
+                    {% else %}
+                    <a href="{{path('app_login')}}" class="btn-primary btn p-0 text-center" type="button">Login</a>
+                    {% endif %}
+      
+                </div>
+
+
+          </nav>
+
+          <nav class="navbar-mobile navbar navbar-expand-lg text-secondary bg-transparent">
+            <div class="container-fluid bg-transparent text-secondary">
+                  <a href="/" class="">
+                    <img src="{{ asset('build/img/Logo.svg') }}" alt="Logo" class="logo logo-nav" style="width: 7rem; height: 7rem;">
+                  </a>
+              <button class="navbar-toggler text-secondary bg-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="bi bi-sliders navbar-toggler-icon"></i>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link text-secondary fs-3" aria-current="page" href="#">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-secondary fs-3" aria-current="page" href="#">Carshares</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-secondary fs-3" href="#">Contact</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link disabled text-white fs-2" aria-disabled="true">Logout</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+          
+          <form class="d-flex search-bar">
+            <div class="">
+              <input class="form-control me-2 rounded-pill" type="search" placeholder="Search" aria-label="Search">
+              <button class=" mt-1 border-2 btn btn-outline-success rounded-pill" type="submit"><h5 class="fw-bold m-0">Search</h5></button>
+            </div>
+          </form>
+
+        </header>
+        {% if app.user %}
+          
+        <aside class="mini-profile position-fixed p-2">
+          {# IMPORTANT: In order to be able to display the profile picture, use a dynamic link through Twig's formatted variable,
+          to the profile imgs folder in the correct way #}
+          {% if app.user.picture is null %}
+          <img src="{{asset('profile_pics/default-profile.jpg')}}" alt="Profile" style="height: 5rem; width: 5rem;">
+          {% else %}
+          <img src="{{asset('profile_pics/%s.jpg'|format(app.user.pseudo))}}" alt="Profile" style="height: 5rem; width: 5rem;">
+          {% endif %}
+
+          {# differenciate between User => go to profile and Employee => go to Workspace #}
+          {% set isUser = true %}
+          {% set isAdmin = false  %}
+          {% for role in app.user.roles %}
+
+            {% if role == 'ROLE_EMPLOYEE' %}
+              {% set isUser = false %}
+            {% elseif role == 'ROLE_ADMIN' %}
+              {% set isAdmin = true %}
+            {% endif %}
+            
+          {% endfor %}
+
+          {% if isUser %}
+          <h5><a class="text-secondary" href="{{ path('app_user_profile') }}">
+            {# here we truncate the pseudo in the eventuality it would be too long, avoiding ugly display #}
+            {{app.user.pseudo|slice(0, 10)}}
+          </a></h5>
+          {% elseif isAdmin %}
+          <h5><a class="text-danger text-capitalize" href="{{ path('app_admin_workspace') }}">
+            {# here we truncate the pseudo in the eventuality it would be too long, avoiding ugly display #}
+            ADMIN
+          </a>
+          {% else %}
+            <h5><a class="text-danger" href="{{ path('app_employee_workspace') }}">
+            {# here we truncate the pseudo in the eventuality it would be too long, avoiding ugly display #}
+            {{app.user.pseudo|slice(0, 10)}}
+          </a></h5>
+          {% endif %}
+
+        </aside>
+        
+        {% endif %}
+
+        
+        {% block body %}{% endblock %}
+
+        
+        <footer class="footer d-flex flex-wrap justify-content-between align-items-center pt-5 pb-5 mt-5 w-100" id="footer">
+          <div class="col-md-4 ms-5 pt-3 text-center text-black footer-group">
+            
+            <h4 class="col-md-4 w-100 fs-2">Contact us !</h4>
+            <a href="mailto:noreply@ecoride.com" class="w-100 fs-4 text-dark footer-link">test@email.com</a>
+            
+          </div>
+
+          <div class="col-md-4 me-5 pt-3 text-center text-black footer-group">
+            <h4 class="col-md-4 w-100 fs-2">Legal settings</h4>
+            <a href="#" class="fs-4 w-100 text-dark footer-link">Cookies and privacy</a>
+          </div>
+      
+        </footer>
+    </body>
+</html>

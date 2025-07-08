@@ -1,0 +1,43 @@
+:root {
+  --primary: #3e6259ff; /* change the primary color to red */
+  --secondary: #aef6c7ff; /* change the secondary color to blue */
+  --neutral: #5b8266ff; /* change the neutral color to green */
+  --dark: #294936ff; /* change the dark color to black */
+  --black: #212922ff; /* change the background color to white */
+  --font-sans-serif: 'Poppins', sans-serif;
+  --font-monospace: "Poppins", monospace;
+  --font-serif: "Raleway", serif;
+}
+.mailcontain a{
+  text-decoration: none;
+  color: var(--black) !important;
+}
+.mailcontain footer{
+  background-color: var(--primary);
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 14px;
+}
+.mailcontain header{
+  width: 100%;
+  text-align: center;
+}
+
+/* booking mail */
+section.mail-book-success{
+  padding: 10px;
+  background-color: var(--secondary);
+  border-radius: 5px;
+  font-size: 16px;
+  margin: 10px 0px;
+}
+
+/* cancel route mail */
+.mail-carshare-cancel strong{
+  color: darkred;
+  
+}

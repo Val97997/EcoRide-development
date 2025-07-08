@@ -1,0 +1,195 @@
+$primary: #3e6259ff; // change the primary color to red
+$secondary: #aef6c7ff; // change the secondary color to blue
+$neutral: #5b8266ff; // change the neutral color to green
+$dark: #294936ff; // change the dark color to black
+$black: #212922ff; // change the background color to white
+$font-sans-serif: 'Poppins', sans-serif !default;
+$font-monospace: "Poppins", monospace !default;
+$font-serif : "Raleway", serif !default;
+
+.bg-carshareview{
+    z-index: -1;
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-image: url('../../public/build/img/bg-cardcarshare.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.carshare-details-container{
+    background-color: lightgray;
+    margin: 10rem auto;
+    min-height: 40rem;
+    border: solid $primary;
+    border-width: .5rem .5rem 0rem .5rem ;
+    width: 80%;
+    position: relative;
+    .title-row{
+        margin:auto;
+        padding: .5rem;
+        width: 80%;
+        font-size: 2rem;
+        font-weight: 600;
+        a{
+            text-decoration:underline;
+            color: $primary;
+            &:hover{
+                color: $secondary;
+            }
+        }
+    }
+    .dates-row{
+        font-size: 1.8rem;
+        width: 100%;
+        a{
+            font-weight: 550;
+            &:hover{
+                color: $secondary;
+            }
+        }
+        div.text-center{
+            margin: auto;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            div.m-0{
+                width: 20rem;
+            }
+            hr{
+                border-width: .2rem;
+                color: $primary;
+                opacity: 1;
+            }
+        }
+    }
+    .infos-row{
+        width: 100%;
+        div{
+            width: 30%;
+            height: 20rem;
+            padding: 3rem;
+            margin: 5rem;
+        }
+        div.price-seat-col{
+            color: white;
+            background-color: $primary;
+            border-radius: 0rem 1rem 1rem 1rem;
+            box-shadow: -3rem 1.5rem green;
+            .style-seat-nbr{
+                font-weight: bolder;
+                font-size: 2.5rem;
+                background-color: $dark;
+                padding: 0rem .5rem;
+                border: .1rem solid $secondary;
+            }
+            h3{
+                font-size: 2.2rem;
+                font-weight: bold;
+            }
+        }
+        div.driver-col{
+            color: $black;
+            background-color: $secondary;
+            border-radius: 1rem 0rem 1rem 1rem;
+            box-shadow: 3rem -1.5rem $dark;
+            h3{
+                font-size: 2rem;
+            }
+            span{
+                font-size: 1.5rem;
+                font-weight: 550;
+            }
+        }
+    }
+    .car-details-row{
+        font-size: 3rem;
+        span:nth-child(3){
+            color: $primary;
+            font-weight: 600;
+            padding: 0rem 1rem;
+            border-radius: 1rem;
+            
+        }
+    }
+    .btn-book-container{
+        a, button{
+            margin: 2rem;
+            height: auto;
+            width: 25rem;
+            padding: 1rem;
+            text-align: center;
+            font-size: 2.2rem;
+            &:hover{
+                color: $secondary;
+            }
+        }
+    }
+}
+//reviews display :
+.reviews-row{
+    margin: auto 2.5rem;
+    width: 50%;
+    border: .1rem dotted $primary;
+    border-radius: .1rem;
+    h3{
+        font-size: 2rem;
+    }
+    p{
+        font-size: 1.4rem;
+    }
+    .bi-star-fill{
+        color: yellowgreen;
+    }
+}
+
+.tooltip-map, .tooltip-map-end, .tooltip-cal, .tooltip-cal-end{
+    visibility: hidden;
+    position: absolute;
+    margin-top: 3rem;
+    font-size: 1.4rem !important;
+    padding: .5rem;
+    background-color: $neutral;
+    color: white!important;
+    z-index: 1;
+    width: 20rem;
+    border-radius: 0rem 1rem 1rem 1rem;
+    i{
+        margin-right: 1rem;
+    }
+}
+.hover-map:hover ~ .tooltip-map, .hover-map-end:hover ~ .tooltip-map-end,
+.hover-cal:hover ~ .tooltip-cal, .hover-cal-end:hover ~ .tooltip-cal-end{
+    visibility: visible;
+}
+
+//modal styling 
+.confirm-modal{
+    position: fixed;
+    top:40%;
+    .modal-dialog{
+        height: auto;
+        padding: 1rem;
+    }
+}
+.confirm-modal-title{
+    font-size: 2rem;
+}
+.confirm-modal-footer{
+    button,a{
+        height: 5rem;
+        width: auto;
+        padding: 0rem 1rem;
+        font-size: 1.6rem;
+    }
+}
+.modal-body-confirm{
+    h3{
+        font-size: 2.2rem;
+        font-weight: 600;
+    }
+    p{
+        font-size: 1.8rem;
+    }
+}

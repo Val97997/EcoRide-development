@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+<script src="{{ asset('build/js/register.js') }}" defer></script>
+
+{% endblock javascripts %}
+{% block title %}
+Register 
+{% if userRole == 'driver' %}
+  Driver
+  {% else %}
+  Passenger
+{% endif %}
+{% endblock title %}
+
+{% block body %}
+{# style error messages otherwise unreadable #}
+<style>
+    ul{
+        z-index: 15 !important;
+    }
+</style>
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+    <div class="bg-gif">
+    </div>
+
+    <div class="role-choice mt-5 mb-3 p-5" id="role-choice">
+        <h1 class="text-white">Choose your role in the EcoRide community !</h1>
+        <div>
+            <input type="radio" name="role" value="driver" id="driver" class=" me-3">
+            <label for="driver">Driver</label>
+        </div>
+        <div>
+            <input type="radio" name="role" value="passenger" id="passenger" class=" me-3">
+            <label for="passenger">Passenger</label>
+        </div>
+    </div>
+
+    <div class="register_form">
+        
+        <h1>
+            {% if userRole == 'driver' %}
+            Create your driver account !
+             {% else %}
+             Register as a passenger ! 
+            {% endif %}
+        </h1>
+    
+        {{ form_errors(registrationForm) }}
+        {{ form_start(registrationForm, { 'csrf_protection' : false }) }}
+        <div class="form-contain"  id="form-container">
+
+            <div class="slide slide1 slide-move" id="slider1">
+                <div class="content">
+                    <div class="icon"></div>
+                        <i class="fa fa-user-circle text-secondary fa-10x" aria-hidden="true"></i>
+                        <h3 class="text-secondary mt-2">Identity</h3>
+                    </div>
+                </div>
+                
+                <div class="slide slide2 slide-move" id="slider2">
+                    {{ form_row(registrationForm.first_name) }}
+                    {{ form_row(registrationForm.last_name) }}
+                    {{ form_row(registrationForm.pseudo) }}
+                    {{ form_row(registrationForm.birth_date) }}
+                    {{ form_row(registrationForm.plainPassword, {label: 'Password'}) }}
+                    {{ form_row(registrationForm.confirmPw) }}
+                    <div aria-disabled="true"></div>
+                </div>
+                
+        </div>
+
+        <div class="form-contain"  id="form-container2">
+
+            <div class="slide slide1 slide-move" id="slider3">
+                <div class="content">
+                    <div class="icon"></div>
+                        <i class="fa fa-circle-info text-secondary fa-10x" aria-hidden="true"></i>
+                        <h3 class="text-secondary mt-2">Additional infos</h3>
+                    </div>
+                </div>
+                
+                <div class="slide slide2 slide-move" id="slider4">
+                    {{ form_row(registrationForm.picture) }}
+                    {{ form_row(registrationForm.email) }}
+                    {{ form_row(registrationForm.phone_nb) }}
+                    {{ form_row(registrationForm.address) }}
+                    {{ form_row(registrationForm.agreeTerms, { 'attr' : {'required' : true} }) }}
+                </div>
+                
+        </div>
+
+        {% if form_errors(registrationForm) %}
+          
+        {% endif %}
+
+        <div class="button-container">
+            <button type="submit" class="btn btn-submit" id="submit-btn">Register</button>
+        </div>
+            {# Error display UX management and implementing break action boolean to avoid multiple displays : #}
+        {% set break = false %}
+        {% for item in registrationForm %}
+            {% if form_errors(item)|length > 0 and not break %}
+                
+                {% set break = true %}
+                <div class="text-center register-form-errors z-3 mt-3 mb-5 bg-danger p-5">
+                    <h3 class=" fs-3 fw-bolder">Input errors :</h3>
+                    {{form_errors(registrationForm.picture)}}
+                    {{form_errors(registrationForm.email)}}
+                    {{form_errors(registrationForm.phoneNb)}}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+{% endblock %}

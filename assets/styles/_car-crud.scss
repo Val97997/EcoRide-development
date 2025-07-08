@@ -1,0 +1,126 @@
+$primary: #3e6259ff; // change the primary color to red
+$secondary: #aef6c7ff; // change the secondary color to blue
+$neutral: #5b8266ff; // change the neutral color to green
+$dark: #294936ff; // change the dark color to black
+$black: #212922ff; // change the background color to white
+$font-sans-serif: 'Poppins', sans-serif !default;
+$font-monospace: "Poppins", monospace !default;
+$font-serif : "Raleway", serif !default;
+
+//animate the title
+@keyframes left-fast-slider {
+    0%{transform: translateX(-100rem);}
+    100%{transform: translateX(0%);}
+}
+@keyframes right-fast-slider {
+    0%{transform: translateX(100rem);}
+    100%{transform: translateX(0%);}
+}
+@keyframes top-fast-slider {
+    0%{transform: translateY(-20rem);}
+    100%{transform: translateY(0%);}
+}
+@keyframes reveal-car-plus {
+    0%{transform: translateY(2rem); opacity: 0; scale: .5;}
+    100%{transform: translateY(0%) ; opacity: 1; scale: 1;}
+}
+#fast-slider-1{
+    animation: left-fast-slider 2s;
+}
+#fast-slider-2{
+    animation: top-fast-slider 2s;
+}
+#fast-slider-3{
+    animation: right-fast-slider 2s;
+}
+.reveal-icon-car{
+    animation: reveal-car-plus 3s;
+    &:hover{
+        color: $secondary;
+    }
+}
+
+.bg-car-crud{
+    z-index: -1;
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-image: url('../../public/build/img/car-bg.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.form-car-new{
+    background-color: $black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    margin: 0rem auto;
+    div#car{
+        border: .1rem solid $primary;
+        border-radius: 2% ;
+        margin: 2rem auto;
+        padding: 5rem;
+        label{
+            color: $secondary;
+            font-weight: bold;
+        }
+        input{
+            color: $primary;
+        }
+        label, input, select{
+            margin: 1rem;
+            width: 40rem;
+            height: 4rem;
+            font-size: 1.8rem;
+        }    
+    } 
+}
+form div#car~button{
+    height: 5rem;
+    width: 10rem;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 1rem auto;
+    background-color: $secondary;
+    &:hover{
+        background-color: $primary;
+        color: white;
+    }
+}
+a.back-link{
+    margin:1rem auto;
+    font-size: 2rem;
+    left: 3%;
+    top: 10%;
+    z-index: 100;
+}
+
+// error messages 
+div.car-form-errors{
+    width: auto;
+    height: auto;
+    color: $black;
+    border-radius: .5rem;
+    box-shadow: 0 0 1rem darkred;
+    ul{
+        width: auto;
+        height: auto;
+        list-style: none;
+        font-size: 1.6rem;
+        font-weight: bold;
+        padding: .5rem 1rem;
+    }
+}
+
+@media (max-width: 1200px) {
+    form.form-car-new{
+        width: 80%;
+        margin-top: 20vh;
+    }
+    a.back-link{
+        top:7%;
+    }
+}

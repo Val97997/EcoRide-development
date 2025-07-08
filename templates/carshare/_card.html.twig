@@ -1,0 +1,58 @@
+<div class="card carshare-card col-sm-9 mb-4">
+    <div class=" card-body">
+        <h5 class="card-title text-center">{{carshare.departureLocation}}<i class="bi bi-arrow-right-short"></i>{{carshare.arrivalLocation }}</h5>
+        <div class="card-title">
+            <div class="card-user-details mt-4">
+                <h6 class=" fs-4">Driver: </h6>
+                {{carshare.user.pseudo}}
+                {# Here we check if the profile picture is defined, otherwise load a different default one #}
+                {% if carshare.user.picture is null %}
+                    <img src="{{asset('profile_pics/default-profile.jpg')}}" alt="Driver" style="max-width: 5rem; max-height: 5rem; border-radius: 1rem;">
+                    {% else %}
+                    <img src="{{asset('profile_pics/%s.jpg'|format(carshare.user.pseudo))}}" alt="Driver" style="max-width: 5rem; max-height: 5rem; border-radius: 1rem;">  
+                {% endif %}
+            </div>
+            
+            <div class="card-timeline-details p-0 mt-4">
+                {# format conversion for a Date object :  #}
+                <b>Departure : {{carshare.departureDate|date("d/m/Y")}} {{carshare.departureHour|date("H:i")}}</b> 
+                <i class="bi bi-arrow-right-short"></i>
+                {# format specifications for Hour and minute (format Time) : #}
+                <b>Arrival : {{carshare.arrivalDate|date("d/m/Y")}}  {{carshare.arrivalHour|date("H:i")}}</b>
+                <hr>
+                {# Calculate the duration of the travel #}
+                {% set departureDateTime = carshare.departureDate|date("m/d/Y") ~ ' ' ~ carshare.departureHour|date("H:i:s") %}
+                {% set arrivalDateTime = carshare.arrivalDate|date("m/d/Y") ~ ' ' ~ carshare.arrivalHour|date("H:i:s") %}
+                {% set formattedarrivalDateTime = date(arrivalDateTime) %}
+                {% set formatteddepartureDateTime = date(departureDateTime) %}
+                
+                <b><i class="bi bi-clock-history"></i> {{formattedarrivalDateTime.diff(formatteddepartureDateTime)|date("%d day(s) %h hrs %i'")}}</b>
+
+                <hr>
+                {# eco ride checkup condition based on fuel type #}
+                {% if carshare.car.fuel.value == 'electric' %}
+                    <h6><i class="bi bi-ev-front-fill"></i> Eco-friendly <i class="bi bi-check-square-fill" style="color: darkgreen;"></i></h6>  
+                {% else %}
+                    <h6><i class="bi bi-ev-front-fill"></i> Not Eco-friendly ({{carshare.car.fuel.value}}) <i class="bi bi-x-square" style="color: red;"></i></h6>
+                {% endif %}
+
+            </div>
+
+
+        </div>
+            
+        <div class="card-route-details">
+            <h4 class="btn btn-secondary text-black fw-bolder">{{carshare.price | number_format(2, '.', ',') }} €  </h4>
+            <h6 class="btn btn-dark text-white fw-bold">{{carshare.availableSeats}} <b>available seats</b></h6> 
+        </div>
+        
+        {% if carshare.availableSeats > 0 %}          
+            <div class="btn-carshare-details">
+                
+                <a href="{{path('app_carshare_details', {'id': carshare.id})}}" class="btn btn-light">Details</a>
+            
+            </div>
+        {% endif %}
+        
+    </div>
+</div>

@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+{% form_theme employeeForm 'form/template.html.twig' %}
+{% block title %}
+  Employee registration
+{% endblock title %}
+
+{% block body %}
+  {{form_start(employeeForm, { 'csrf_protection' : false, 'attr' : {'class' : 'new-employee-form'} })}}
+
+    {# add employee requirement for a full name (must be available to admin) #}
+    {{form_row(employeeForm.first_name, { 'attr' : {'required' : true} })}}
+    {{form_row(employeeForm.last_name, { 'attr' : {'required' : true} })}}
+    {{form_row(employeeForm.pseudo)}}
+    {{form_row(employeeForm.email)}}
+    {{form_row(employeeForm.plainPassword)}}
+    {{form_row(employeeForm.submit)}}
+
+  {{form_end(employeeForm, {render_rest: false})}}
+{% endblock body %}

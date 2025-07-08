@@ -1,0 +1,13 @@
+{% extends "email/_baseEmail.html.twig" %}
+
+{% block content %}
+  <section class="mail-carshare-cancel">
+    <h3>Dear {{passenger.firstName}} {{passenger.lastName}}, </h3> <hr>
+
+    <p>We regret to inform you that the following route </p> <hr>
+
+    <strong> {{carshare.departureLocation}} TO {{carshare.arrivalLocation}}, on the {{carshare.departureDate|date("m/d/Y")}} </strong> <hr>
+
+    <p>has unfortunately been canceled <br> Your credits spent will be restituted in the app. </p>
+  </section>
+{% endblock content %}

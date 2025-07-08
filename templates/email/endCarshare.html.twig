@@ -1,0 +1,17 @@
+{% extends "email/_baseEmail.html.twig" %}
+
+{% block content %}
+    <section class="mail-carshare-end">
+        <h3>Dear {{passenger.firstName}} {{passenger.lastName}}, </h3> <hr>
+
+        <p>
+            Your journey from {{carshare.departureLocation}} to {{carshare.arrivalLocation}} has ended <br>
+        We hope that your travel was enjoyable, and please access your profile on the platform in order to validate that <br>
+        everything went okay ! <hr>
+        We hope to see you again soon on EcoRide, <br>
+        Have a good day !
+        </p>
+
+    </section>
+  
+{% endblock content %}

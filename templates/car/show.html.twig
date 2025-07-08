@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Delete Car{% endblock %}
+
+{% block body %}
+<div class="car-remover">
+    <h1> <i class="bi bi-exclamation-triangle-fill"></i> You are about to remove the following vehicle : {{car.color ~ ' ' ~ car.model}}</h1>
+    
+    <div class=" d-flex">
+        <a href="{{ path('app_user_profile') }}">back to profile</a>
+    
+        {{ include('car/_delete_form.html.twig') }}
+    </div>
+
+</div>
+{% endblock %}

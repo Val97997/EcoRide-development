@@ -1,0 +1,80 @@
+<div class="table-book-listing position-relative">
+
+
+  <div class="dep-loc text-center position-relative text-dark"><span class=" d-block">
+  <i class="fa-solid fa-house m-1 fa-2x"></i> </span>  <p class=" mt-1">{{carshare.departureLocation}}</p>
+  </div>
+  <div class="dep-date text-center d-flex flex-column justify-content-around p-2">
+    <span class=" d-block">
+      Departure at <em>{{carshare.departureDate|date("m/d/Y")}} <hr> {{carshare.departureHour|date("H:i")}}</em>
+    </span>
+  </div>
+  
+  <div class="arr-loc text-center position-relative text-dark"><span class=" d-block">
+  <i class="fa-solid fa-right-from-bracket fa-2x m-1" ></i> </span> <p class="m-1">{{carshare.arrivalLocation}}</p>
+  </div>
+  <div class="arr-date text-center d-flex flex-column justify-content-around p-2">
+    <span class=" d-block">
+      Arrival at <em>{{carshare.arrivalDate|date("m/d/Y")}} <hr> {{carshare.arrivalHour|date("H:i")}}</em>
+    </span>
+  </div>
+  
+  
+  <div class="current-status text-center d-flex flex-column justify-content-around p-2">
+    <span>
+      Route current status <hr>
+      {% if carshare.status.value == 'waiting' %}
+        <strong>To be started</strong>
+      {% elseif carshare.status.value == 'in_progress' %}
+        <strong>Started</strong>
+      {% elseif carshare.status.value == 'complete' %}
+        <strong>Finished</strong>
+      {% else %}
+        <strong>{{carshare.status.value}}</strong>
+      {% endif %}
+    </span>
+  </div>
+  <div class="fuel-type text-center d-flex flex-column justify-content-around p-2">
+    {% if carshare.car.fuel.value == 'electric' %}
+      <em><strong>Eco-friendly</strong></em>
+    {% else %}
+      <em><strong>Not ecological</strong></em>
+    {% endif %}
+  </div>
+
+  {# only show cancel option if carshare is not ongoing or done #}
+  {% if carshare.status.value == 'waiting' %}
+    <div class="cancel-book text-center bg-transparent">
+      <a href="{{path('app_cancel_confirm', { 'id': carshare.id } )}}" class="h-100 w-100 bg-transparent"><button class="m-auto h-100 w-100 fs-2 fw-bold btn btn-danger">
+        Cancel booking</button></a>
+    </div>
+    <h2 class="cancel-panel position-absolute w-50 top-50 z-n1 bg-danger text-center fw-bolder">
+    Cancel ?
+    </h2>
+    <h2 class="cancel-panel-r position-absolute w-50 top-50 z-n1 bg-danger text-center fw-bolder">
+    Cancel ?
+    </h2>
+  
+    <div class="contact-book text-center bg-transparent">
+      <a href="mailto:{{carshare.user.email}}" class="h-100 w-100 bg-transparent"><button class="m-auto h-100 w-100 fs-2 fw-bold btn btn-secondary position-relative">
+        Contact driver <i class="fa-solid fa-envelope fa-2x position-absolute top-0"></i></button></a>
+    </div>
+
+
+
+    {# options if carshare finished #}
+    {% elseif carshare.status.value == 'complete' %}
+    <div class="valid-carshare-btn text-center bg-transparent">
+      <a href="{{path('app_carshare_validate', { 'id': carshare.id } )}}" class="h-100 w-100 bg-transparent"><button class="m-auto h-100 w-100 fs-2 fw-bold btn btn-info">
+        Validate</button></a>
+    </div>
+    <div class="confirm-route text-center bg-transparent">
+      <a href="{{path('app_review_create', { 'id': carshare.id, 'uid': app.user.id } )}}" class=" h-100 w-100 bg-transparent" aria-disabled="true"><button class="m-auto h-100 w-100 fs-2 fw-bold btn btn-primary">
+        <span class="text-danger z-2">Validate and review</span> <br> <i class="fa-solid fa-circle-check text-white"></i></button></a>
+    </div>
+    {% endif %}
+
+
+
+
+</div>

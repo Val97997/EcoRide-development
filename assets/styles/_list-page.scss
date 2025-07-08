@@ -1,0 +1,335 @@
+$primary: #3e6259ff; // change the primary color to red
+$secondary: #aef6c7ff; // change the secondary color to blue
+$neutral: #5b8266ff; // change the neutral color to green
+$dark: #294936ff; // change the dark color to black
+$black: #212922ff; // change the background color to white
+$font-sans-serif: 'Poppins', sans-serif !default;
+$font-monospace: "Poppins", monospace !default;
+$font-serif : "Raleway", serif !default;
+
+@keyframes opacity-anim{
+    0% {opacity: 1;}
+    50% {opacity: 0.5;}
+    100% {opacity: 1;}
+    
+}
+@keyframes search-slider{
+    0% {transform: translateY(-50%); opacity: 0.1;}
+    100% {transform: translateY(0); opacity: 1;}
+}
+//search icon validate color filling
+.anim-filling{
+    color: green;
+    transition: color 5s;
+}
+//advanced search options panel :
+.reveal-translate{
+    animation: search-slider 1.2s ease-in-out;
+}
+.rotate-arrow{
+    transform: rotate(180deg);
+    transition: all 0.5s ease-in-out;
+}
+//hide elements
+.hidden{
+    display: none;
+}
+//bg pic
+.search-page-hero-bg{
+    z-index: -1;
+    position: fixed;
+    top:10%;
+    width: 100%;
+    height: 75vh;
+    background-image: url('../../public/build/img/search-banner.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    filter:sepia(0.5);
+    background-size: cover;
+}
+.search-page-big-hero{
+    padding: 2rem 0rem;
+    margin: 0;
+    h1{
+        font-size: 2.5vw;
+        font-weight: 1100;
+    }
+    h4{
+        font-size: 1.5vw;
+        font-weight: 750;
+        -webkit-text-stroke: 0.1rem $primary;
+        span{
+            border-radius: 1.2rem;
+            padding: 1rem 2rem;
+        }
+    }
+}
+.form-search{
+    width: 100%;
+    height: auto;
+    border-radius: 1.2rem;
+    padding: 1rem;
+    .basic-search-fields{
+        z-index: 2;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        height: auto;
+        border-radius: 1.2rem;
+        background-color: $secondary;
+        padding: 1rem;
+        margin-top: 6rem;
+        .bi-arrow-left-right{
+            color: white;
+            font-size: 3rem;
+            &:hover{
+                cursor: pointer;
+                color: $dark;
+                transition: all 0.5s ease-in-out;
+            }
+        }
+    }
+    form{
+        width: 100%;
+        height: 20rem;
+        margin: auto;
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        .btn-basic-search-submit{
+            border: none;
+            background-color: transparent;
+            i.fa-magnifying-glass-arrow-right{
+                color: $primary;
+                &:hover{
+                    transition: all 0.5s ease-in;
+                    transform: rotateY(180deg) scale(1.1);
+                    animation: opacity-anim 0.5s ease-in-out;
+                }
+                &:not(:hover){
+                    transition: all 0.5s ease-in;
+                    transform: rotateY(0deg) scale(1);
+                    animation: opacity-anim 0.5s ease-in-out;
+                }
+            }
+            i.fa-circle-check{
+                position: relative;
+                color: green;
+                &:hover:after{
+                    color: $dark;
+                    opacity: 1;
+                }
+                &:after{
+                    content: " ";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    color: $dark;
+                    opacity: 0;
+                }
+            }
+        }
+        input:not([type="checkbox"], [type="number"]){
+            height: 4rem;
+            width: 20rem;
+            padding-left: 1.2rem;
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: $primary;
+            &:hover, &:focus, &:active{
+                transition: all 0.3s ease-in-out;
+                background-color: $neutral;
+                color:$secondary;
+                &::placeholder{
+                    color: $secondary;
+                }
+            }
+        }
+        div{
+            #departure_date{
+                border-radius: 1rem;
+                border: none !important;
+                outline: none !important;
+            }
+            label{
+                color: $primary;
+                font-weight: bold;
+                font-size: 2rem;
+                margin-right: 2rem;
+                margin-top: auto;
+                margin-bottom: auto;
+            }
+        }
+        .seemless-border{
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: row;
+            border: .1rem solid $secondary;
+            border-radius: 2.5rem;
+            input, input:autofill{
+                border : none;
+                &:hover, &:focus, &:active{
+                    border: none !important;
+                    outline: none !important;
+                }
+            }
+            div:first-child{
+                input{
+                    border-radius: 2.5rem 0rem 0rem 2.5rem;
+                }
+            }
+            div:last-child{
+                input{
+                    border-radius: 0rem 2.5rem 2.5rem 0rem;
+                }
+            }
+        }
+    }
+    .search-reveal{
+        text-align: center;
+        i{
+            margin: auto;
+            font-size: 3rem;
+            color: $dark;
+            &:hover{
+                cursor: pointer;
+                transform: scale(1.1);
+                transition: all 0.5s ease-in-out;
+            }
+        }
+    }
+    .extended-search-fields{
+        z-index: 1;
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        height: auto;
+        border-radius: 1.2rem;
+        background-color: $dark;
+        padding: 1rem;
+        margin-top: 1rem;
+        div{
+            margin: 0rem .5rem 0rem .5rem;
+            label{
+                color: $secondary;
+                height: 2rem;
+                font-size: 1.4rem;
+            }
+            input{
+                text-align: center;
+                padding-left: 0rem !important;
+            }
+            input:not([type="checkbox"]){
+                border-radius: 1rem;
+            }
+            input[type="checkbox"]{
+                width: 2rem;
+                height: 2rem;
+                border-radius: 1.5rem;
+                background-color: $secondary;
+                border: none;
+                &:hover, &:focus, &:active{
+                    transition: all 0.3s ease-in-out;
+                    background-color: $neutral;
+                    color:$secondary;
+                    border: none;
+                }
+            }
+            input[type="number"]{
+                font-weight: bold;
+                font-size: 1.6rem;
+                width: 7.5rem;
+                height: 4rem;
+                border-radius: 1rem;
+                background-color: $secondary;
+                border: none;
+                &:hover, &:focus, &:active{
+                    transition: all 0.3s ease-in-out;
+                    background-color: $neutral;
+                    color:$secondary;
+                    border: none;
+                }
+            }
+            &:nth-child(2), &:nth-child(3){
+                display: flex;
+                flex-wrap: nowrap;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: stretch;
+                input{
+                    margin-right: 1rem;
+                }
+            }
+        }
+        table tbody select{
+            text-align: center;
+            font-weight: bold;
+            border: none;
+            background-color: $secondary;
+            border-radius: .5rem;
+            font-size: 1.6rem;
+            height: 3rem;
+            width: 5rem;
+            padding-bottom: .5rem;
+            &::-webkit-scrollbar-track{
+                background: $dark;
+            }
+        }
+    }
+}
+
+
+// style for slider price :
+#price-div-search div{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+    .price-slider-em{
+        width: 5rem;
+        font-size: 1.6rem;
+        font-weight: bold;
+        color: $secondary;
+    }
+}
+// style for rating search option :
+#rating{
+    font-size: 1.6rem;
+    background-color: $dark;
+    color: $secondary;
+}
+
+
+@media (max-width: 1000px) {
+    .extended-search-fields{
+        flex-direction: column !important;
+        min-height: 20rem !important;
+    }
+    #extended-search-fields{
+        z-index: 1000;
+    }
+    .basic-search-fields{
+        margin: 3rem auto !important;
+        flex-direction: column-reverse !important;
+        min-height: 20rem !important;
+        i.fa-magnifying-glass-arrow-right::before{
+            content: 'Search';
+            margin-bottom: 1rem !important;
+            &:hover{
+                background-color: $black;
+                color: $secondary;
+            }
+        }
+    }
+    .carshare-list-container{
+        margin-top: 35rem !important;
+    }
+}

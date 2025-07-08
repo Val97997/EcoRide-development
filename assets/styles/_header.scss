@@ -1,0 +1,111 @@
+$primary: #3e6259ff; // change the primary color to red
+$secondary: #aef6c7ff; // change the secondary color to blue
+$neutral: #5b8266ff; // change the neutral color to green
+$dark: #294936ff; // change the dark color to black
+$black: #212922ff; // change the background color to white
+$font-sans-serif: 'Poppins', sans-serif !default;
+$font-monospace: "Poppins", monospace !default;
+$font-serif : "Raleway", serif !default;
+@keyframes headerBounceSlide{
+    0% {transform: translateY(-40%);}
+    20% {transform: translateY(0%);}
+    40% {transform: translateY(-5%);}
+    60% {transform: translateY(0%);}
+    80% {transform: translateY(-2.5%);}
+    100% {transform: translateY(0%);}
+}
+// header edition
+header{
+    z-index: 1000;
+    position: sticky;
+    top: 0;
+    box-shadow: 1rem .5rem .5rem $primary;
+    .search-bar{
+        height: 5rem;
+        width: 100%;
+        text-align: center;
+        div{
+            width: 50%;
+            height: 3.5rem;
+            margin: auto;
+            padding: auto;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            position: relative;
+            input{
+                width: 100%;
+                font-size: 1.6rem;
+                z-index: 2;
+                color: $dark;
+            }
+            button{
+                height: 3rem;
+                color: $dark;
+                border-color: $dark;
+                position: absolute;
+                right: 3%;
+                font-size: 1.4rem;
+                z-index: 5;
+                &:hover{
+                    background-color: $dark;
+                    color: $secondary;
+                    border-color: $secondary;
+                }
+                h5{
+                    padding: auto;
+                }
+            }
+
+        }
+    }
+    .navbar-desktop{
+        animation: headerBounceSlide .5s;
+        animation-iteration-count: 1;
+        margin:auto;
+        padding: auto;
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        justify-content: center;
+        font-family: $font-sans-serif;
+        .nav-items{
+            min-width: 35rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            &:first-child{
+                margin-right: 10rem;
+            }
+            &:last-child{
+                margin-left: 10rem;
+            }
+            a, button{
+                font-size: 2.5rem;
+                height: auto;
+                width: 15rem;
+                margin:auto;
+                padding: auto;
+                vertical-align: baseline;
+            }
+            .nav-link{
+                color: white;
+                &:hover{
+                    color: $secondary;
+                    text-decoration: none;
+                }
+            }
+        }
+        .logo-nav{
+            &:hover{
+                transform: scale(1.1);
+                transition: transform 0.5s ease-in-out;
+            }
+            
+        }
+    }
+    .navbar-mobile{
+        display: none;
+    }
+}

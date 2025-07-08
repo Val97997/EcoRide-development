@@ -1,0 +1,163 @@
+$primary: #3e6259ff; // change the primary color to red
+$secondary: #aef6c7ff; // change the secondary color to blue
+$neutral: #5b8266ff; // change the neutral color to green
+$dark: #294936ff; // change the dark color to black
+$black: #212922ff; // change the background color to white
+$font-sans-serif: 'Poppins', sans-serif !default;
+$font-monospace: "Poppins", monospace !default;
+$font-serif : "Raleway", serif !default;
+
+input[type='number']{
+    // Remove default webkit styles for number input
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    appearance: textfield;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
+
+.form-carshare-new{
+    width: 80%;
+    height: auto;
+    margin: 1rem auto;
+    padding: 5rem;
+    border: .3rem dashed darkred;
+    box-shadow: 0 0 0 1rem $neutral;
+    div.nb-input-carshare{
+        border-radius: 1rem;
+        background-color: lightgray;
+        div.plusminus-carshare{
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-end;
+            padding: 2rem;
+            margin: 1rem auto;
+            i.bi-plus-lg, i.bi-dash-lg{
+                font-size: 3rem;
+            }
+            i.bi-dash-circle-fill, i.bi-plus-circle-fill{
+                font-size: 4rem;
+            }
+            i.bi-plus-lg, i.bi-dash-lg, i.bi-dash-circle-fill, i.bi-plus-circle-fill{
+                color: $primary;
+                font-weight: bolder;
+                transition: all .2s ease;
+                margin-bottom: 1rem;
+                &:hover{
+                    cursor: pointer	;
+                    color: $black;
+                    text-shadow: #212922ff;
+                }
+            }
+            #override-styling{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                flex-wrap: nowrap;
+                input, label{
+                    width: 20rem;
+                    height: 5rem;
+                    margin: 1rem;
+                    font-size: 1.8rem;
+                    font-weight: bold;
+                    text-align: center;
+                }
+                input{
+                    color: $secondary;
+                    background-color: $black;
+                    &:hover{
+                        background-color: $black;
+                    }
+                }
+            }
+        }
+    }
+    div:not(.nb-input-carshare, .plusminus-carshare, #override-styling, #override-icons-js){
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: start;
+        // #carshare_available_seats::before{
+        //     content: '';
+        // }
+        label, input:not([type='checkbox'], [type='range']), select{
+            height: 5rem;
+            margin: 1rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+            width: 40rem;
+        }
+        label{
+            color: $black;
+            background-color: lightgrey;
+            border-radius: .1rem;
+            text-justify: distribute;
+            text-align: center;
+            box-shadow: -1rem 1rem $neutral;
+        }
+        input:not([type='checkbox'], [type='range']), select{
+            &:hover{
+                background-color: $black;
+            }
+            text-align: center;
+            background-color: $primary;
+            color: $secondary;
+            box-shadow: 1rem -1rem lightgray;
+        }
+        input[type='checkbox']{
+            &:hover{
+                background-color: $black;
+            }
+            margin-top: 2rem;
+            height: 3rem;
+            width: 3rem;
+            border-radius: 50%;
+        }
+    }
+    position: relative;
+    .validate-new-carshare-btn{
+        height: 4rem;
+        width: 8rem;
+        position: absolute;
+        bottom: 1%;
+        left:90%;
+        font-size: 1.8rem;
+        transition: all .5s ease;
+        transform-origin: bottom right;
+        color: $black;
+        background-color: $secondary;
+        &:hover{
+            transform: scale(2);
+            background-color: $primary;
+            color: white;
+        }
+    }
+}
+
+.back-prof-carsh-link{
+    position: absolute;
+    margin:none;
+    font-size: 2rem;
+    left: 3%;
+    top: 10%;
+    z-index: 100;
+}
+
+.carshare-new-form-errors{
+    margin: 1rem auto;
+    border-radius: 1rem;
+    ul{
+        list-style-type: none;
+    }
+}
+#carshare_pref::placeholder{
+    color: $secondary;
+}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Car{% endblock %}
+
+{% block body %}
+    <h1 class="w-100 text-center fw-bolder text-white fs-1 pt-5 pb-3 bg-primary">Edit Car</h1>
+
+    {{ include('car/_form.html.twig', {'button_label': 'Update'}) }}
+    
+    <a class="back-link btn btn-danger m-auto position-absolute" href="{{ path('app_user_profile') }}">back to profile</a>
+{% endblock %}

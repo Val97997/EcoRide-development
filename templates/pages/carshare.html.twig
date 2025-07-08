@@ -1,0 +1,179 @@
+{% extends "base.html.twig" %}
+
+{# customized title page #}
+{% block title %}{{carshare.arrivalLocation}} / {{carshare.departureDate|date('Y-m-d')}}{% endblock %}
+{% block body %}
+
+{% if carshare.user.id == app.user.id or carshare in app.user.bookHistory %}
+  {% include "pages/403.html.twig" %}
+  
+{% else %}
+<div class="bg-carshareview">
+</div>
+
+
+<div class="carshare-details-container">
+      <div class="text-center title-row">
+          <span class="position-relative">
+              Route from
+              <a class="hover-map" href="https://www.google.fr/maps/place/{{carshare.departureLocation}}" target="_blank">{{carshare.departureLocation}}</a>
+              <span class="tooltip-map"><i class="bi bi-geo-alt-fill"></i>Reveal in Google Maps</span>
+              to
+              <a class="hover-map-end" href="https://www.google.fr/maps/place/{{carshare.arrivalLocation}}" target="_blank">{{carshare.arrivalLocation}}</a>
+              <span class="tooltip-map-end"><i class="bi bi-geo-alt-fill"></i>Reveal in Google Maps</span>
+              on the {{carshare.departureDate|date('Y-m-d')}}
+            </span>
+        </div>
+        <div class="row dates-row">
+            <div class="text-center justify-content-center">
+                <div class="m-0 p-0">
+                    <span>
+                        <i class="bi bi-stopwatch ms-3"></i>
+                        {{carshare.departureHour|date('H:i')}}
+                    </span>
+                    <span class=" position-relative">
+                        <a class="hover-cal" href="https://calendar.google.com/calendar/u/0/r/day/{{carshare.departureDate|date('Y/m/d')}}" target="_blank">{{carshare.departureDate|date('Y-m-d')}}</a>
+                        <span class="tooltip-cal"><i class="bi bi-calendar2-plus"></i>Open in Google Calendar</span>
+                        <i class="bi bi-calendar4" style="color: green;"></i>
+                    </span>
+                </div>
+                
+                <hr class="d-inline-block w-25 mt-0 mb-0 me-1 ms-1">
+                
+                <div class="m-0 p-0">
+                    <span class=" position-relative">
+                        <i class="fa-solid fa-flag-checkered" style="color: green;"></i>
+                        <a class="hover-cal-end" href="https://calendar.google.com/calendar/u/0/r/day/{{carshare.arrivalDate|date('Y/m/d')}}" target="_blank">{{carshare.arrivalDate|date('Y-m-d')}}</a>
+                        <span class="tooltip-cal-end"><i class="bi bi-calendar2-plus"></i>Open in Google Calendar</span>
+                    </span>
+                    <span>
+                        <i class="bi bi-stopwatch ms-3"></i>
+                        {{carshare.arrivalHour|date('H:i')}}
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row infos-row d-flex flex-row justify-content-between">
+            <div class="price-seat-col">
+                <h3>Price and availability</h3>
+                
+                <span class=" fs-1">
+                    <i class="bi bi-wallet2 me-2"></i>{{carshare.price | number_format(2, '.', ',') }} €
+                </span>
+                <br>
+                <span style="font-size: 1.4rem;">
+                    <em class="style-seat-nbr">{{carshare.availableSeats}}</em> available seats
+                </span>
+            </div>
+            <div class="driver-col">
+                <h3>Driver details</h3>
+                <span>{{carshare.user.pseudo}}</span>
+                <br>
+                <span>
+                    <i class="bi bi-envelope-arrow-up-fill"></i> : <a href="mailto:{{carshare.user.email}}">{{carshare.user.email}}</a>
+                </span>
+                
+            </div>
+        </div>
+        
+        <div class="car-details-row w-100 text-center">
+            <i class="bi bi-car-front-fill"></i>
+            <span>
+                {{carshare.car.color}}
+                {{carshare.car.model}}
+            </span>
+            {% if carshare.car.fuel.value == 'electric' %}
+            <span style="background-color: green; color:aquamarine;">
+                <i class="bi bi-plugin"></i></i>{{carshare.car.fuel.value}}
+            </span>
+            {% else %}
+            <span style="background-color: red; color: black;">
+                <i class="bi bi-fuel-pump"></i>{{carshare.car.fuel.value}}
+            </span>
+            {% endif %}
+            <hr>
+            <div class=" w-50 m-auto mb-5">
+                {% if carshare.smokingAllowance %}
+                    <strong><i class="fa-solid fa-smoking"></i> Smoking allowed</strong>
+                {% else %}
+                    <strong><i class="fa-solid fa-ban-smoking"></i>No smoking</strong>
+                {% endif %}
+                <strong> || </strong>
+                {% if carshare.animalAllowance %}
+                    <strong><i class="fa-solid fa-dog"></i> Pets allowed</strong>
+                {% else %}
+                    <strong><i class="fa-solid fa-ban"></i>No pets</strong>
+                {% endif %}
+                <hr>
+                {% if carshare.pref is not same as '' %}
+                    <h3>Additional restrictions</h5>
+                    {% for line in carshare.pref %}
+                        <i class="fa-solid fa-circle-exclamation fa-2xs pe-2"></i><em class=" fs-2">{{line}}</em> 
+                    {% endfor %}
+                {% endif %}
+            </div>
+            
+        </div>
+        {% for car in '{{carshare.user.cars}}'  %}
+        {{car.color}}
+        {% endfor %}
+        
+        <div class="btn-book-container w-100 text-center">
+            {% if app.user %}
+                {% if app.user.creditBalance > carshare.price %}
+                <button type="button" data-bs-toggle="modal" data-bs-target="#confirmBookingModal" class="btn m-auto btn-dark mb-2">Book</button>
+                {% else %}
+                <button type="button" class="btn m-auto btn-danger mb-2" href="/">Not enough credits</button>
+                {% endif %}
+            {% else %}
+            <a href="{{path('app_login')}}" class="btn m-auto btn-dark mb-2">Login to book</a>
+            {% endif %}
+        </div>
+        {# reviews display section #}
+        {% if reviews|length > 0 %}
+
+            <div class="reviews-row mt-5">
+                <hr>
+                <h3>Driver reviews :</h3>
+                
+                {% for review in reviews %}
+                {# check if review has been approved by EcoRide #}
+                {% if review.status == 'approved' %}
+
+                    {% for i in 1..review.rating %}
+                    <i class="bi bi-star-fill fs-1"></i>
+                    {% endfor %}
+                    <p class="fs-3"><strong>{{review.rating}}/5</strong><br>{{review.content}}</p><hr>
+
+                {% endif %}
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+    </div>
+    
+    
+    <!-- Modal -->
+    <div class="modal fade confirm-modal" id="confirmBookingModal" tabindex="-1" role="dialog" aria-labelledby="confirmBookingModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold confirm-modal-title text-primary" id="confirmBookingModalLabel">Do you wish to proceed ?</h5>
+                </div>
+            <div class="modal-body modal-body-confirm">
+                <h3>You are about to book the following route :</h3>
+                <p>{{carshare.departureLocation}}<i class="bi bi-arrow-right me-5 ms-5"></i>{{carshare.arrivalLocation}}
+                    <i class="bi bi-calendar ms-5 me-2"></i>{{carshare.departureDate|date('d/m/Y')}}</p>
+                </div>
+                <div class="modal-footer confirm-modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Go back</button>
+                    <button type="button" class="btn btn-primary"><a href="{{path('app_book', {'id': carshare.id, 'uid': app.user.id})}}" class=" text-secondary text-decoration-none">
+                        Confirm (-{{carshare.price}}/10 credits)</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock body %}

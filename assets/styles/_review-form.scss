@@ -1,0 +1,52 @@
+$primary: #3e6259ff; // change the primary color to red
+$secondary: #aef6c7ff; // change the secondary color to blue
+$neutral: #5b8266ff; // change the neutral color to green
+$dark: #294936ff; // change the dark color to black
+$black: #212922ff; // change the background color to white
+$font-sans-serif: 'Poppins', sans-serif !default;
+$font-monospace: "Poppins", monospace !default;
+$font-serif : "Raleway", serif !default;
+
+.star {
+    cursor: pointer;
+    color: #ccc; /* Default star color */
+    transition: color 0.2s;
+}
+
+.star.active {
+    color: #ffc107; /* Highlight color */
+}
+
+
+.form-review{
+    width: 50%;
+    margin: 2rem auto;
+    height: 50rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    label{
+        font-size: 1.6rem;
+        font-weight: bold;
+        color: white;
+    }
+    textarea#review_content{
+        font-size: 1.8rem;
+        &::placeholder{
+            font-size: 1.6rem;
+            font-weight: bold;
+        }
+    }
+    button#review_save{
+        background-color: $dark;
+        height: 7.5rem;
+        width: auto;
+        padding: 0rem 1rem;
+        font-weight: bold;
+        font-size: 1.8rem;
+        &:hover{
+            background-color: $secondary;
+            color: $black;
+        }
+    }
+}

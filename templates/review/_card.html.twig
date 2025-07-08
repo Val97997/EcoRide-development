@@ -1,0 +1,29 @@
+<div class="review-card-container p-3 m-3">
+    {# check if review is positive or negative #}
+    {% if review.rating < 3 %}
+      <h3 class="text-danger fw-bolder">Negative review</h3>
+    {% elseif review.rating == 3 %}
+      <h3 class=" text-warning fw-bolder">Mixed review</h3>
+    {% else %}
+      <h3 class="text-secondary fw-bolder">Positive review</h3>
+    {% endif %}
+    <hr>
+    <h1 class=" p-2"><strong><em>{{review.rating}}</em>/5</strong></h1>
+    
+    <p class="fs-3"> {{review.content}} </p>
+
+    <div class="review-body-details">
+        <ul>
+            <li>Carshare id <i class="bi bi-arrow-right"></i> <span class="text-secondary"> {{review.carshareid}}</span></li>
+            <li>Driver pseudonym <i class="bi bi-arrow-right"></i> <span class=" text-secondary"> {{driver.pseudo}}</span> </li>
+            <li>Driver contact <i class="bi bi-arrow-right"></i> <a href="mailto:{{driver.email}}" class="text-secondary">{{driver.email}}</a> </li>
+            <li>Passenger pseudo<i class="bi bi-arrow-right"></i> <span class=" text-danger">{{reviewer.pseudo}}</span>  </li>
+            <li>Passenger contact <i class="bi bi-arrow-right"></i> <a href="mailto:{{reviewer.email}}" class="text-danger">{{reviewer.email}}</a> </li>
+        </ul>
+
+        <div class="review-actions">
+          <a href="{{path('app_employee_review-approve', { 'id': review.id })}}" class="btn btn-primary fs-3">Validate</a>
+          <a href="{{path('app_employee_review-reject', { 'id': review.id })}}" class="btn btn-danger fs-3">Reject</a>
+        </div>
+    </div>
+</div>
